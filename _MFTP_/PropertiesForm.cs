@@ -54,6 +54,10 @@ namespace _MFTP_
             {
                 FileInfo Inf = new FileInfo(File);
                 Filename.Text = Inf.Name;
+                if(Inf.Name == "..") { 
+                    Filename.Text = "File is unavailable.";
+                    goto end;
+                }
                 try
                 {
                     FileAttributes attr = Inf.Attributes;
@@ -70,11 +74,9 @@ namespace _MFTP_
                 {
                 }
                 Address.Text = Inf.FullName;
-
                 Date0.Text = Inf.LastWriteTime.ToString();
                 Chmod.Text = "";
                 Perms.Text = "";
-
 
             }
         end: { }

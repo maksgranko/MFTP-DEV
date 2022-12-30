@@ -10,17 +10,32 @@ namespace _MFTP_
         private ushort FTP_ConnectedState;
         private ushort FTP_FTPType;
         private ushort FTP_PortFromType;
+        private ushort Copycount_0;
+        private ushort Copycount_1;
+        private ushort Deletecount_0;
+        private ushort Deletecount_1;
+        private ushort Uploadcount;
+        private ushort Downloadcount;
         private bool FTP_ConnectStatusIsNeedUpdate;
         private bool FTP_CustomPortIsNeedUpdate;
         private bool ConnectedBefore;
         private bool CopyMoveMode_1;
         private bool CopyMoveMode_0;
         private bool Disk_block;
-        private string CopyMoveTarget_1 = "";
-        private string CopyMoveTarget_0 = "";
+        private string[] UploadTarget = new string[255];
+        private string[] DownloadTarget = new string[255];
+        private string[] UploadItemName = new string[255];
+        private string[] DownloadItemName = new string[255];
+        private string[] CopyMoveTarget_0 = new string[255];
+        private string[] CopyMoveTarget_1 = new string[255];
+        private string[] MoveItemName_0 = new string[255];
+        private string[] MoveItemName_1 = new string[255];
+        private string[] DeleteTarget_0 = new string[255];
+        private string[] DeleteTarget_1 = new string[255];
+        private string[] DeleteItemName_0 = new string[255];
+        private string[] DeleteItemName_1 = new string[255];
         private string WorkingDirectory_0 = "";
         private string WorkingDirectory_1 = "/";
-        private string ItemName;
 
         public MFTP()
         {
@@ -416,7 +431,7 @@ namespace _MFTP_
                 FTP_Error.Text = err.Message;
             }
             ConnectedBefore = true;
-            FTP_SkipConnect:
+        FTP_SkipConnect:
             FTP_ConnectStatusIsNeedUpdate = true;
             UpdateVar();
         }
@@ -533,29 +548,39 @@ namespace _MFTP_
 
                 try
                 {
-                    if (Server_1_listBox.SelectedItem.ToString() == "..")
+                    Deletecount_1 = 0;
+                    foreach (int index in Server_1_listBox.SelectedIndices)
                     {
-                        FTP_Error.Text = "This folder can't be deleted.";
+                        DeleteItemName_1[Deletecount_1] = Server_1_listBox.Items[index].ToString();
+                        DeleteTarget_1[Deletecount_1] = WorkingDirectory_1 + "/" + DeleteItemName_1[Deletecount_1];
+                        Deletecount_1++;
                     }
-                    else
+
+                    for (int i = 0; i < Deletecount_1; i++)
                     {
-                        FtpObjectType? tmp = client.GetFilePermissions(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem).Type;
-                        if (tmp == null)
+                        if (DeleteItemName_1[i] != "..")
                         {
-                            FTP_Error.Text = "This is file can't be deleted.";
+                            FtpObjectType? tmp = client.GetFilePermissions(DeleteTarget_1[i]).Type;
+                            if (tmp == null)
+                            {
+                                FTP_Error.Text = "This is file or directory can't be deleted.";
+                            }
+                            string ItemType = tmp.ToString();
+                            if (ItemType == "Directory")
+                            {
+                                client.DeleteDirectory(DeleteTarget_1[i]);
+                            }
+                            else if (ItemType == "File")
+                            {
+                                client.DeleteFile(DeleteTarget_1[i]);
+                            }
                         }
-                        string ItemType = tmp.ToString();
-                        if (ItemType == "Directory")
+                        else
                         {
-                            client.DeleteDirectory(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem.ToString());
-                            Refresh_FileList_1();
-                        }
-                        else if (ItemType == "File")
-                        {
-                            client.DeleteFile(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem.ToString());
-                            Refresh_FileList_1();
+                            FTP_Error.Text = "This is file or directory can't be deleted.(named as \"..\" or same exception)";
                         }
                     }
+                    Refresh_FileList_1();
                 }
                 catch (FluentFTP.FtpCommandException)
                 {
@@ -698,6 +723,7 @@ namespace _MFTP_
         private void OpeninConMenu_Click(object sender, EventArgs e)
         {
             Open_1();
+
         }
 
         private void Server_1_EnterButton_Click(object sender, EventArgs e)
@@ -708,6 +734,7 @@ namespace _MFTP_
             {
                 try
                 {
+
                     client.SetWorkingDirectory(Server_1_Textbox.Text);
                     WorkingDirectory_1 = Server_1_Textbox.Text;
                     Refresh_FileList_1();
@@ -750,11 +777,11 @@ namespace _MFTP_
                         else
                         {
                             FtpObjectType? tmp = null;
-                            if(client.GetFilePermissions(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem) != null)
+                            if (client.GetFilePermissions(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem) != null)
                             {
                                 tmp = client.GetFilePermissions(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem).Type;
                             }
-                            
+
                             if (tmp == null)
                             {
                                 FTP_Error.Text = "This is file can't be opened.";
@@ -851,17 +878,14 @@ namespace _MFTP_
         {
             if (CopyMoveMode_1 == false)
             {
-                if (Server_1_listBox.SelectedItem.ToString() == "..")
-                {
-                    FTP_Error.Text = "This folder can't be moved.";
-                }
-                else
-                {
-                    ItemName = Server_1_listBox.SelectedItem.ToString();
-                    CopyMoveTarget_1 = WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem.ToString();
-                    CopyMoveMode_1 = true;
-                    FTP_Error.Text = CopyMoveTarget_1;
-                }
+                    Copycount_1 = 0;
+                    foreach (int index in Server_1_listBox.SelectedIndices)
+                    {
+                        MoveItemName_1[Copycount_1] = Server_1_listBox.Items[index].ToString();
+                        CopyMoveTarget_1[Copycount_1] = WorkingDirectory_1 + "/" + MoveItemName_1[Copycount_1];
+                        CopyMoveMode_1 = true;
+                        Copycount_1++;
+                    }
             }
             else
             {
@@ -871,28 +895,37 @@ namespace _MFTP_
                     SetEncoding(client);
                     try
                     {
-                        FtpObjectType? tmp = null;
-                        if (client.GetFilePermissions(CopyMoveTarget_1) != null)
+                        for (int i = 0; i < Copycount_1; i++)
                         {
-                            tmp = client.GetFilePermissions(CopyMoveTarget_1).Type;
-                        }
-                        
-                        if (tmp == null)
-                        {
-                            FTP_Error.Text = "This is file can't be moved.";
-                        }
-                        string ItemType = tmp.ToString();
-                        if (ItemType == "Directory")
-                        {
-                            client.MoveDirectory(CopyMoveTarget_1, WorkingDirectory_1 + "/" + ItemName, FtpRemoteExists.Skip);
-                        }
-                        else if (ItemType == "File")
-                        {
-                            client.MoveFile(CopyMoveTarget_1, WorkingDirectory_1 + "/" + ItemName, FtpRemoteExists.Skip);
+                            if (MoveItemName_1[i] != "..")
+                            {
+                                FtpObjectType? tmp = null;
+                                if (client.GetFilePermissions(CopyMoveTarget_1[i]) != null)
+                                {
+                                    tmp = client.GetFilePermissions(CopyMoveTarget_1[i]).Type;
+                                }
+
+                                if (tmp == null)
+                                {
+                                    FTP_Error.Text = "This is file can't be moved.";
+                                }
+                                string ItemType = tmp.ToString();
+                                if (ItemType == "Directory")
+                                {
+                                    client.MoveDirectory(CopyMoveTarget_1[i], WorkingDirectory_1 + "/" + MoveItemName_1[i], FtpRemoteExists.Skip);
+                                }
+                                else if (ItemType == "File")
+                                {
+                                    client.MoveFile(CopyMoveTarget_1[i], WorkingDirectory_1 + "/" + MoveItemName_1[i], FtpRemoteExists.Skip);
+                                }
+                            }
+                            else
+                            {
+                                FTP_Error.Text = "This file/directory can't be copied/moved(named as \"..\" or same exception).";
+                            }
                         }
                         Refresh_FileList_1();
                         FTP_Error.Text = client.GetWorkingDirectory();
-                        CopyMoveMode_1 = false;
                     }
 
                     catch (System.NullReferenceException)
@@ -910,6 +943,10 @@ namespace _MFTP_
                     catch (Exception err)
                     {
                         FTP_Error.Text = err.Message;
+                    }
+                    finally
+                    {
+                        CopyMoveMode_1 = false;
                     }
                 }
             }
@@ -952,17 +989,22 @@ namespace _MFTP_
         }
         private void DownloadinConMenu_1_Click(object sender, EventArgs e)
         {
-            if (Server_1_listBox.SelectedItem.ToString() == "..")
+            var client = getClient();
+            SetEncoding(client);
+
+            Downloadcount = 0;
+            foreach (int index in Server_1_listBox.SelectedIndices)
             {
-                FTP_Error.Text = "This folder can't be downloaded.";
+                DownloadItemName[Downloadcount] = Server_1_listBox.Items[index].ToString();
+                DownloadTarget[Downloadcount] = WorkingDirectory_1 + "/" + DownloadItemName[Downloadcount];
+                Downloadcount++;
             }
-            else
+            try
             {
-                var client = getClient();
-                SetEncoding(client);
-                try
+                for (int i = 0; i < Downloadcount; i++)
                 {
-                    FtpObjectType? tmp = client.GetFilePermissions(WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem).Type;
+                    if (DownloadItemName[i] != "..") { 
+                    FtpObjectType? tmp = client.GetFilePermissions(DownloadTarget[i]).Type;
                     if (tmp == null)
                     {
                         FTP_Error.Text = "This is file can't be downloaded.";
@@ -970,38 +1012,41 @@ namespace _MFTP_
                     string ItemType = tmp.ToString();
                     if (ItemType == "Directory")
                     {
-                        client.DownloadDirectory(WorkingDirectory_0 + "/" + Server_1_listBox.SelectedItem.ToString(), WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem.ToString(), FtpFolderSyncMode.Update, FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
-                        Refresh_FileList_0();
-                        Refresh_FileList_1();
+                        client.DownloadDirectory(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpFolderSyncMode.Update, FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
                     }
                     else if (ItemType == "File")
                     {
-                        client.DownloadFile(WorkingDirectory_0 + "/" + Server_1_listBox.SelectedItem.ToString(), WorkingDirectory_1 + "/" + Server_1_listBox.SelectedItem.ToString(), FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
-                        Refresh_FileList_0();
-                        Refresh_FileList_1();
+                        client.DownloadFile(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
                     }
                 }
-                catch (NullReferenceException)
-                {
-                    FTP_Error.Text = "error.";
-                }
-                catch (FtpCommandException)
-                {
-                    FTP_Error.Text = "Moving error.";
-                }
-                catch (ArgumentNullException)
-                {
-                    FTP_Error.Text = "Too fast!";
-                }
-                catch (ArgumentException)
-                {
-                    FTP_Error.Text = "Select disk or folder to download files/folders!";
-                }
-                catch (Exception err)
-                {
-                    FTP_Error.Text = err.Message;
+                    else
+                    {
+                        FTP_Error.Text = "One or more files or directories can't be downloaded.(named as \"..\" or same exception)";
+                    }
                 }
             }
+            catch (NullReferenceException)
+            {
+                FTP_Error.Text = "error.";
+            }
+            catch (FtpCommandException)
+            {
+                FTP_Error.Text = "Moving error.";
+            }
+            catch (ArgumentNullException)
+            {
+                FTP_Error.Text = "Too fast!";
+            }
+            catch (ArgumentException)
+            {
+                FTP_Error.Text = "Select disk or folder to download files/folders!";
+            }
+            catch (Exception err)
+            {
+                FTP_Error.Text = err.Message;
+            }
+            Refresh_FileList_0();
+            Refresh_FileList_1();
         }
 
         private void GotoRoot_1_Click(object sender, EventArgs e)
@@ -1349,53 +1394,62 @@ namespace _MFTP_
 
         private void UploadinConMenu_0_Click(object sender, EventArgs e)
         {
-            if (Server_0_listBox.SelectedItem.ToString() == "..")
-            {
-                FTP_Error.Text = "This folder can't be Uploaded.";
-            }
-            else
-            {
-                var client = getClient();
-                SetEncoding(client);
+            var client = getClient();
+            SetEncoding(client);
 
-                try
+            Uploadcount = 0;
+            foreach (int index in Server_0_listBox.SelectedIndices)
+            {
+                UploadItemName[Uploadcount] = Server_0_listBox.Items[index].ToString();
+                UploadTarget[Uploadcount] = WorkingDirectory_1 + "/" + UploadItemName[Uploadcount];
+                Uploadcount++;
+            }
+            try
+            {
+                for (int i = 0; i < Uploadcount; i++)
                 {
-                    FileAttributes attr = File.GetAttributes(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString());
-                    if (attr.HasFlag(FileAttributes.Directory))
+                    if (UploadItemName[i] != "..")
                     {
-                        client.UploadDirectory(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString(), WorkingDirectory_1 + "/" + Server_0_listBox.SelectedItem.ToString(), FtpFolderSyncMode.Update, FtpRemoteExists.Skip);
-                        Refresh_FileList_0();
-                        Refresh_FileList_1();
+                        FileAttributes attr = File.GetAttributes(WorkingDirectory_0 + "/" + UploadItemName[i]);
+                        if (attr.HasFlag(FileAttributes.Directory))
+                        {
+                            client.UploadDirectory(WorkingDirectory_0 + "/" + UploadItemName[i], UploadTarget[i], FtpFolderSyncMode.Update, FtpRemoteExists.Skip);
+                        }
+                        else
+                        {
+                            client.UploadFile(WorkingDirectory_0 + "/" + UploadItemName[i], UploadTarget[i], FtpRemoteExists.Skip, true);
+                        }
                     }
                     else
                     {
-                        client.UploadFile(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString(), WorkingDirectory_1 + "/" + Server_0_listBox.SelectedItem.ToString(), FtpRemoteExists.Skip, true);
-                        Refresh_FileList_0();
-                        Refresh_FileList_1();
+                        FTP_Error.Text = "One or more files or directories can't be uploaded.(named as \"..\" or same exception)";
                     }
                 }
-                catch (System.NullReferenceException)
-                {
-                    FTP_Error.Text = "Error.";
-                }
-                catch (FluentFTP.FtpCommandException err)
-                {
-                    FTP_Error.Text = "Moving error. Full inf. : " + err.Message;
-                }
-                catch (ArgumentNullException)
-                {
-                    FTP_Error.Text = "Too fast!";
-                }
-                catch (FluentFTP.FtpException err)
-                {
-                    FTP_Error.Text = err.Message.ToString();
-                }
-                catch (Exception err)
-                {
-                    FTP_Error.Text = err.Message;
-                }
             }
+            catch (System.NullReferenceException)
+            {
+                FTP_Error.Text = "Error.";
+            }
+            catch (FluentFTP.FtpCommandException err)
+            {
+                FTP_Error.Text = "Moving error. Full inf. : " + err.Message;
+            }
+            catch (ArgumentNullException)
+            {
+                FTP_Error.Text = "Too fast!";
+            }
+            catch (FluentFTP.FtpException err)
+            {
+                FTP_Error.Text = err.Message.ToString();
+            }
+            catch (Exception err)
+            {
+                FTP_Error.Text = err.Message;
+            }
+            Refresh_FileList_0();
+            Refresh_FileList_1();
         }
+    
 
         private void CreateFolderinConMenu_0_Click(object sender, EventArgs e)
         {
@@ -1438,43 +1492,55 @@ namespace _MFTP_
 
         private void DeleteinConMenu_0_Click(object sender, EventArgs e)
         {
-            if (Server_0_listBox.SelectedItem.ToString() == "..")
+            Deletecount_0 = 0;
+            foreach (int index in Server_0_listBox.SelectedIndices)
             {
-                FTP_Error.Text = "This folder is can't be deleted.";
+                DeleteItemName_0[Deletecount_0] = Server_0_listBox.Items[index].ToString();
+                DeleteTarget_0[Deletecount_0] = WorkingDirectory_0 + "/" + DeleteItemName_0[Deletecount_0];
+                Deletecount_0++;
             }
-            else
+            try
             {
-                try
+
+                for (int i = 0; i < Deletecount_0; i++)
                 {
-                    FileAttributes attr = File.GetAttributes(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString());
-                    if (attr.HasFlag(FileAttributes.Directory))
+                    if (MoveItemName_0[i] != "..")
                     {
-                        if (Directory.GetDirectories(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem).Length + Directory.GetFiles(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem).Length > 0)
+                        FileAttributes attr = File.GetAttributes(DeleteTarget_0[i]);
+                        if (attr.HasFlag(FileAttributes.Directory))
                         {
-                            DirectoryInfo DInf = new DirectoryInfo(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString());
-                            RecursiveDelete(DInf, false);
+                            if (Directory.GetDirectories(DeleteTarget_0[i]).Length + Directory.GetFiles(DeleteTarget_0[i]).Length > 0)
+                            {
+                                DirectoryInfo DInf = new DirectoryInfo(DeleteTarget_0[i]);
+                                RecursiveDelete(DInf, false);
+                            }
+                            else
+                            {
+                                Directory.Delete(DeleteTarget_0[i]);
+                            }
                         }
                         else
                         {
-                            Directory.Delete(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem);
+                            File.Delete(DeleteTarget_0[i]);
                         }
                     }
                     else
                     {
-                        File.Delete(WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem);
+                        FTP_Error.Text = "One or more items can't be deleted.(named \"..\" or same exception.)";
                     }
-                    Refresh_FileList_0();
-                }
-                catch (System.IO.IOException err)
-                {
-                    FTP_Error.Text = err.Message;
-                }
-                catch (Exception err)
-                {
-                    FTP_Error.Text = err.Message;
                 }
             }
+            catch (System.IO.IOException err)
+            {
+                FTP_Error.Text = err.Message;
+            }
+            catch (Exception err)
+            {
+                FTP_Error.Text = err.Message;
+            }
+            Refresh_FileList_0();
         }
+    
 
         ////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////
@@ -1482,7 +1548,10 @@ namespace _MFTP_
         {
             if (!baseDir.Exists)
                 return;
-            foreach (var dir in baseDir.EnumerateDirectories()) RecursiveDelete(dir, false);
+            foreach (var dir in baseDir.EnumerateDirectories())
+            {
+                RecursiveDelete(dir, false);
+            }
             foreach (var file in baseDir.GetFiles())
             {
                 file.IsReadOnly = false;
@@ -1505,27 +1574,36 @@ namespace _MFTP_
             {
                 if (CopyMoveMode_0 == false)
                 {
-                    if (Server_0_listBox.SelectedItem.ToString() == "..")
+                    Copycount_0 = 0;
+                    foreach (int index in Server_0_listBox.SelectedIndices)
                     {
-                        FTP_Error.Text = "This isn't folder or file.";
-                    }
-                    else {
-                    ItemName = Server_0_listBox.SelectedItem.ToString();
-                    CopyMoveTarget_0 = WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString();
-                    CopyMoveMode_0 = true;
-                    FTP_Error.Text = CopyMoveTarget_0;
+                        MoveItemName_0[Copycount_0] = Server_0_listBox.Items[index].ToString();
+                        CopyMoveTarget_0[Copycount_0] = WorkingDirectory_0 + "/" + MoveItemName_0[Copycount_0];
+                        CopyMoveMode_0 = true;
+                        Copycount_0++;
                     }
                 }
+            
                 else
                 {
-                    FileAttributes attr = File.GetAttributes(CopyMoveTarget_0);
-                    if (attr.HasFlag(FileAttributes.Directory))
+                    for (int i = 0; i < Copycount_0; i++)
                     {
-                        Directory.Move(CopyMoveTarget_0, WorkingDirectory_0 + "/" + ItemName);
-                    }
-                    else
-                    {
-                        File.Move(CopyMoveTarget_0, WorkingDirectory_0 + "/" + ItemName);
+                        if (MoveItemName_0[i] != "..")
+                        {
+                            FileAttributes attr = File.GetAttributes(CopyMoveTarget_0[i]);
+                            if (attr.HasFlag(FileAttributes.Directory))
+                            {
+                                Directory.Move(CopyMoveTarget_0[i], WorkingDirectory_0 + "/" + MoveItemName_0[i]);
+                            }
+                            else
+                            {
+                                File.Move(CopyMoveTarget_0[i], WorkingDirectory_0 + "/" + MoveItemName_0[i]);
+                            }
+                        }
+                        else
+                        {
+                            FTP_Error.Text = "This is file/directory can't be moved/copied (named as \"..\" or same exception).";
+                        }
                     }
                     Refresh_FileList_0();
                     CopyMoveMode_0 = false;
@@ -1534,13 +1612,15 @@ namespace _MFTP_
             catch (System.IO.IOException err)
             {
                 FTP_Error.Text = err.Message;
+                CopyMoveMode_0 = false;
             }
             catch (Exception err)
             {
                 FTP_Error.Text = err.Message;
+                CopyMoveMode_0 = false;
             }
         }
-    
+
 
         private void RenameInConMenu_0_Click(object sender, EventArgs e)
         {
@@ -1560,16 +1640,16 @@ namespace _MFTP_
 
                 try
                 {
-                    CopyMoveTarget_0 = WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString();
+                    CopyMoveTarget_0[0] = WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString();
 
-                    FileAttributes attr = File.GetAttributes(CopyMoveTarget_0);
+                    FileAttributes attr = File.GetAttributes(CopyMoveTarget_0[0]);
                     if (attr.HasFlag(FileAttributes.Directory))
                     {
-                        Directory.Move(CopyMoveTarget_0, WorkingDirectory_0 + "/" + Out);
+                        Directory.Move(CopyMoveTarget_0[0], WorkingDirectory_0 + "/" + Out);
                     }
                     else
                     {
-                        File.Move(CopyMoveTarget_0, WorkingDirectory_0 + "/" + Out);
+                        File.Move(CopyMoveTarget_0[0], WorkingDirectory_0 + "/" + Out);
                     }
                     Refresh_FileList_0();
                 }

@@ -107,6 +107,7 @@
             this.Server_0_listBox.Location = new System.Drawing.Point(4, 54);
             this.Server_0_listBox.Margin = new System.Windows.Forms.Padding(0);
             this.Server_0_listBox.Name = "Server_0_listBox";
+            this.Server_0_listBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.Server_0_listBox.Size = new System.Drawing.Size(506, 469);
             this.Server_0_listBox.TabIndex = 12;
             this.Server_0_listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Server_0_listBox_MouseDoubleClick);
@@ -128,6 +129,7 @@
             this.Server_1_listBox.Location = new System.Drawing.Point(512, 54);
             this.Server_1_listBox.Margin = new System.Windows.Forms.Padding(0);
             this.Server_1_listBox.Name = "Server_1_listBox";
+            this.Server_1_listBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.Server_1_listBox.Size = new System.Drawing.Size(506, 469);
             this.Server_1_listBox.TabIndex = 10;
             this.Server_1_listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Server_1_listBox_MouseDoubleClick);
@@ -372,7 +374,7 @@
             this.FTP_Error.BackColor = System.Drawing.SystemColors.Control;
             this.FTP_Error.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.FTP_Error.Name = "FTP_Error";
-            this.FTP_Error.Size = new System.Drawing.Size(852, 17);
+            this.FTP_Error.Size = new System.Drawing.Size(883, 17);
             this.FTP_Error.Spring = true;
             this.FTP_Error.Text = "Errors not found!";
             // 
