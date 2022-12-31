@@ -39,14 +39,14 @@ namespace _MFTP_
             this.TextBox.Location = new System.Drawing.Point(12, 43);
             this.TextBox.MaxLength = 255;
             this.TextBox.Name = "TextBox";
-            this.TextBox.Size = new System.Drawing.Size(211, 23);
+            this.TextBox.Size = new System.Drawing.Size(198, 23);
             this.TextBox.TabIndex = 0;
             // 
             // Button
             // 
-            this.Button.Location = new System.Drawing.Point(246, 43);
+            this.Button.Location = new System.Drawing.Point(216, 43);
             this.Button.Name = "Button";
-            this.Button.Size = new System.Drawing.Size(75, 23);
+            this.Button.Size = new System.Drawing.Size(105, 23);
             this.Button.TabIndex = 1;
             this.Button.UseVisualStyleBackColor = true;
             this.Button.Click += new System.EventHandler(this.btn0_Click);

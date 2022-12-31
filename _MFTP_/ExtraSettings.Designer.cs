@@ -36,11 +36,11 @@ namespace MFTP
             this.Force_UTF7_chbox = new System.Windows.Forms.CheckBox();
             this.Force_ASCII_chbox = new System.Windows.Forms.CheckBox();
             this.l0 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cb0 = new System.Windows.Forms.CheckBox();
+            this.gb1 = new System.Windows.Forms.GroupBox();
+            this.FXP_Proto_cb0 = new System.Windows.Forms.CheckBox();
             this.l1 = new System.Windows.Forms.Label();
             this.gb0.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gb1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveSettings
@@ -49,7 +49,7 @@ namespace MFTP
             this.SaveSettings.Name = "SaveSettings";
             this.SaveSettings.Size = new System.Drawing.Size(80, 23);
             this.SaveSettings.TabIndex = 4;
-            this.SaveSettings.Text = "Применить";
+            this.SaveSettings.Text = "Apply";
             this.SaveSettings.UseVisualStyleBackColor = true;
             this.SaveSettings.Click += new System.EventHandler(this.SaveSettings_Click);
             // 
@@ -72,7 +72,7 @@ namespace MFTP
             // 
             this.Force_UTF8_chbox.AutoSize = true;
             this.Force_UTF8_chbox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Force_UTF8_chbox.Location = new System.Drawing.Point(171, 35);
+            this.Force_UTF8_chbox.Location = new System.Drawing.Point(193, 35);
             this.Force_UTF8_chbox.Name = "Force_UTF8_chbox";
             this.Force_UTF8_chbox.Size = new System.Drawing.Size(89, 19);
             this.Force_UTF8_chbox.TabIndex = 6;
@@ -84,7 +84,7 @@ namespace MFTP
             // 
             this.Force_Auto_chbox.AutoSize = true;
             this.Force_Auto_chbox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Force_Auto_chbox.Location = new System.Drawing.Point(171, 19);
+            this.Force_Auto_chbox.Location = new System.Drawing.Point(193, 19);
             this.Force_Auto_chbox.Name = "Force_Auto_chbox";
             this.Force_Auto_chbox.Size = new System.Drawing.Size(105, 19);
             this.Force_Auto_chbox.TabIndex = 4;
@@ -96,7 +96,7 @@ namespace MFTP
             // 
             this.Force_UTF7_chbox.AutoSize = true;
             this.Force_UTF7_chbox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Force_UTF7_chbox.Location = new System.Drawing.Point(76, 35);
+            this.Force_UTF7_chbox.Location = new System.Drawing.Point(86, 35);
             this.Force_UTF7_chbox.Name = "Force_UTF7_chbox";
             this.Force_UTF7_chbox.Size = new System.Drawing.Size(89, 19);
             this.Force_UTF7_chbox.TabIndex = 3;
@@ -108,7 +108,7 @@ namespace MFTP
             // 
             this.Force_ASCII_chbox.AutoSize = true;
             this.Force_ASCII_chbox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Force_ASCII_chbox.Location = new System.Drawing.Point(76, 19);
+            this.Force_ASCII_chbox.Location = new System.Drawing.Point(86, 19);
             this.Force_ASCII_chbox.Name = "Force_ASCII_chbox";
             this.Force_ASCII_chbox.Size = new System.Drawing.Size(86, 19);
             this.Force_ASCII_chbox.TabIndex = 2;
@@ -120,8 +120,8 @@ namespace MFTP
             // 
             this.l0.AutoSize = true;
             this.l0.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.l0.Location = new System.Drawing.Point(10, 19);
-            this.l0.MaximumSize = new System.Drawing.Size(60, 15);
+            this.l0.Location = new System.Drawing.Point(6, 20);
+            this.l0.MaximumSize = new System.Drawing.Size(70, 15);
             this.l0.MinimumSize = new System.Drawing.Size(60, 15);
             this.l0.Name = "l0";
             this.l0.Size = new System.Drawing.Size(60, 15);
@@ -129,29 +129,29 @@ namespace MFTP
             this.l0.Text = "Encoding:";
             this.l0.Click += new System.EventHandler(this.l0_Click);
             // 
-            // groupBox1
+            // gb1
             // 
-            this.groupBox1.Controls.Add(this.cb0);
-            this.groupBox1.Controls.Add(this.l1);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.groupBox1.Location = new System.Drawing.Point(3, 142);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 58);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Beta Functional";
+            this.gb1.Controls.Add(this.FXP_Proto_cb0);
+            this.gb1.Controls.Add(this.l1);
+            this.gb1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.gb1.Location = new System.Drawing.Point(3, 142);
+            this.gb1.Name = "gb1";
+            this.gb1.Size = new System.Drawing.Size(329, 58);
+            this.gb1.TabIndex = 7;
+            this.gb1.TabStop = false;
+            this.gb1.Text = "Beta Functional";
             // 
-            // cb0
+            // FXP_Proto_cb0
             // 
-            this.cb0.AutoSize = true;
-            this.cb0.ForeColor = System.Drawing.Color.Red;
-            this.cb0.Location = new System.Drawing.Point(95, 18);
-            this.cb0.Name = "cb0";
-            this.cb0.Size = new System.Drawing.Size(94, 19);
-            this.cb0.TabIndex = 2;
-            this.cb0.Text = "FXP protocol";
-            this.cb0.UseVisualStyleBackColor = true;
-            this.cb0.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.FXP_Proto_cb0.AutoSize = true;
+            this.FXP_Proto_cb0.ForeColor = System.Drawing.Color.Red;
+            this.FXP_Proto_cb0.Location = new System.Drawing.Point(102, 17);
+            this.FXP_Proto_cb0.Name = "FXP_Proto_cb0";
+            this.FXP_Proto_cb0.Size = new System.Drawing.Size(94, 19);
+            this.FXP_Proto_cb0.TabIndex = 2;
+            this.FXP_Proto_cb0.Text = "FXP protocol";
+            this.FXP_Proto_cb0.UseVisualStyleBackColor = true;
+            this.FXP_Proto_cb0.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // l1
             // 
@@ -171,7 +171,7 @@ namespace MFTP
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 264);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gb1);
             this.Controls.Add(this.gb0);
             this.Controls.Add(this.SaveSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -186,8 +186,8 @@ namespace MFTP
             this.Deactivate += new System.EventHandler(this.ExtraSettings_Deactivate);
             this.gb0.ResumeLayout(false);
             this.gb0.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gb1.ResumeLayout(false);
+            this.gb1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -200,8 +200,8 @@ namespace MFTP
         private System.Windows.Forms.CheckBox Force_UTF7_chbox;
         private System.Windows.Forms.CheckBox Force_ASCII_chbox;
         private System.Windows.Forms.CheckBox Force_UTF8_chbox;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox cb0;
+        private System.Windows.Forms.GroupBox gb1;
+        private System.Windows.Forms.CheckBox FXP_Proto_cb0;
         private System.Windows.Forms.Label l1;
     }
 }

@@ -61,6 +61,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Пусто.
+        /// </summary>
+        public static string _null {
+            get {
+                return ResourceManager.GetString("null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Доступ запрещён..
         /// </summary>
         public static string Error_AccessDenied {
@@ -75,15 +84,6 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_BadAddress {
             get {
                 return ResourceManager.GetString("Error_BadAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Директория не найдена..
-        /// </summary>
-        public static string Error_BadFolder {
-            get {
-                return ResourceManager.GetString("Error_BadFolder", resourceCulture);
             }
         }
         
@@ -106,7 +106,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Отказано в доступе. Неверный Логин или Пароль..
+        ///   Ищет локализованную строку, похожую на Подключение принудительно разорвано. Неверный логин или пароль..
         /// </summary>
         public static string Error_Connection_Refused {
             get {
@@ -115,11 +115,20 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Данная директория не найдена..
+        ///   Ищет локализованную строку, похожую на Подключение принудительно разорвано..
         /// </summary>
-        public static string Error_DirectoryNotFound {
+        public static string Error_Connection_Refused_Simple {
             get {
-                return ResourceManager.GetString("Error_DirectoryNotFound", resourceCulture);
+                return ResourceManager.GetString("Error_Connection_Refused_Simple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Данная директория/файл не найдена..
+        /// </summary>
+        public static string Error_DirFileNotFound {
+            get {
+                return ResourceManager.GetString("Error_DirFileNotFound", resourceCulture);
             }
         }
         
@@ -129,6 +138,15 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_EmptyAddress {
             get {
                 return ResourceManager.GetString("Error_EmptyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка папки..
+        /// </summary>
+        public static string Error_FolderError {
+            get {
+                return ResourceManager.GetString("Error_FolderError", resourceCulture);
             }
         }
         
@@ -196,7 +214,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Один из файлов/директорий не может быть загружен!(вероятно, вы выделили &quot;..&quot; при перемещении.).
+        ///   Ищет локализованную строку, похожую на Один из файлов/директорий не может быть выгружен!(вероятно, вы выделили &quot;..&quot; при выгрузке.).
         /// </summary>
         public static string Error_IsntUpload {
             get {
@@ -232,7 +250,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Клиент не подключён к серверу. Обновление списка невозможно..
+        ///   Ищет локализованную строку, похожую на  Клиент не подключён к серверу. Обновление списка невозможно..
         /// </summary>
         public static string Error_RefreshingUnavailableServer {
             get {
@@ -259,6 +277,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Неизвестная ошибка. Указываем адрес на корневой..
+        /// </summary>
+        public static string Error_SettingAddressDefault {
+            get {
+                return ResourceManager.GetString("Error_SettingAddressDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Время ожидания истекло. Проверьте ваше соединение с сервером и интернетом..
         /// </summary>
         public static string Error_Timeout {
@@ -273,15 +300,6 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_TooFast {
             get {
                 return ResourceManager.GetString("Error_TooFast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сервер недоступен. Подключение разорвано..
-        /// </summary>
-        public static string Error_UnavailableServer {
-            get {
-                return ResourceManager.GetString("Error_UnavailableServer", resourceCulture);
             }
         }
         
@@ -439,7 +457,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Введите новое название файла.
+        ///   Ищет локализованную строку, похожую на Введите новое название файла\папки.
         /// </summary>
         public static string Info_InputNewName {
             get {
@@ -484,7 +502,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Порт был успешно сохранён!.
+        ///   Ищет локализованную строку, похожую на Порт был успешно сохранён! .
         /// </summary>
         public static string Info_PortSaved {
             get {
@@ -498,6 +516,334 @@ namespace _MFTP_.Resources.Localizations {
         public static string Info_RenameIt {
             get {
                 return ResourceManager.GetString("Info_RenameIt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Применить.
+        /// </summary>
+        public static string Text_Apply {
+            get {
+                return ResourceManager.GetString("Text_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Авто.
+        /// </summary>
+        public static string Text_Auto {
+            get {
+                return ResourceManager.GetString("Text_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Создать файл.
+        /// </summary>
+        public static string Text_CreateFile {
+            get {
+                return ResourceManager.GetString("Text_CreateFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Создать папку.
+        /// </summary>
+        public static string Text_CreateFolder {
+            get {
+                return ResourceManager.GetString("Text_CreateFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Указать порт.
+        /// </summary>
+        public static string Text_CustomPort {
+            get {
+                return ResourceManager.GetString("Text_CustomPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Удалить.
+        /// </summary>
+        public static string Text_Delete {
+            get {
+                return ResourceManager.GetString("Text_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Скачать.
+        /// </summary>
+        public static string Text_Download {
+            get {
+                return ResourceManager.GetString("Text_Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл.
+        /// </summary>
+        public static string Text_File {
+            get {
+                return ResourceManager.GetString("Text_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Папка.
+        /// </summary>
+        public static string Text_Folder {
+            get {
+                return ResourceManager.GetString("Text_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тип FTP подкл..
+        /// </summary>
+        public static string Text_FTPType {
+            get {
+                return ResourceManager.GetString("Text_FTPType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Открыть.
+        /// </summary>
+        public static string Text_Open {
+            get {
+                return ResourceManager.GetString("Text_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пароль:.
+        /// </summary>
+        public static string Text_Password {
+            get {
+                return ResourceManager.GetString("Text_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Свойства.
+        /// </summary>
+        public static string Text_Properties {
+            get {
+                return ResourceManager.GetString("Text_Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дополнительная информация.
+        /// </summary>
+        public static string Text_Properties_AddInfo {
+            get {
+                return ResourceManager.GetString("Text_Properties_AddInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Путь:.
+        /// </summary>
+        public static string Text_Properties_Address {
+            get {
+                return ResourceManager.GetString("Text_Properties_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Доп. инф.:.
+        /// </summary>
+        public static string Text_Properties_Advanced {
+            get {
+                return ResourceManager.GetString("Text_Properties_Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Базовая информация.
+        /// </summary>
+        public static string Text_Properties_BasicInfo {
+            get {
+                return ResourceManager.GetString("Text_Properties_BasicInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Chmod:.
+        /// </summary>
+        public static string Text_Properties_Chmod {
+            get {
+                return ResourceManager.GetString("Text_Properties_Chmod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя файла:.
+        /// </summary>
+        public static string Text_Properties_Filename {
+            get {
+                return ResourceManager.GetString("Text_Properties_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл недоступен..
+        /// </summary>
+        public static string Text_Properties_FilenameInvalid {
+            get {
+                return ResourceManager.GetString("Text_Properties_FilenameInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата мод.:.
+        /// </summary>
+        public static string Text_Properties_ModDate {
+            get {
+                return ResourceManager.GetString("Text_Properties_ModDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет прав..
+        /// </summary>
+        public static string Text_Properties_NoPerms {
+            get {
+                return ResourceManager.GetString("Text_Properties_NoPerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Размер:.
+        /// </summary>
+        public static string Text_Properties_Size {
+            get {
+                return ResourceManager.GetString("Text_Properties_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Обновить.
+        /// </summary>
+        public static string Text_Refresh {
+            get {
+                return ResourceManager.GetString("Text_Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Переименовать.
+        /// </summary>
+        public static string Text_Rename {
+            get {
+                return ResourceManager.GetString("Text_Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Настройки.
+        /// </summary>
+        public static string Text_Settings {
+            get {
+                return ResourceManager.GetString("Text_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Авто кодировка.
+        /// </summary>
+        public static string Text_Settings_AutoEncode {
+            get {
+                return ResourceManager.GetString("Text_Settings_AutoEncode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бета функции.
+        /// </summary>
+        public static string Text_Settings_BetaFunctional {
+            get {
+                return ResourceManager.GetString("Text_Settings_BetaFunctional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бета функционал нестабилен, он может работать или работать плохо/нестабильно. 
+        ///Пометки цветом:
+        ///Красный: Функция не работает.
+        ///Желтый:Функция нестабильна.
+        ///Белый:Новая функция без категории(или разработчику было лень указать).
+        /// </summary>
+        public static string Text_Settings_BetaMessage {
+            get {
+                return ResourceManager.GetString("Text_Settings_BetaMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Кодировка.
+        /// </summary>
+        public static string Text_Settings_Encoding {
+            get {
+                return ResourceManager.GetString("Text_Settings_Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Принуд. ASCII.
+        /// </summary>
+        public static string Text_Settings_ForceASCII {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Принуд. UTF7.
+        /// </summary>
+        public static string Text_Settings_ForceUTF7 {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceUTF7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Принуд. UTF8.
+        /// </summary>
+        public static string Text_Settings_ForceUTF8 {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceUTF8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на FXP Протокол.
+        /// </summary>
+        public static string Text_Settings_FXPProto {
+            get {
+                return ResourceManager.GetString("Text_Settings_FXPProto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Загрузить.
+        /// </summary>
+        public static string Text_Upload {
+            get {
+                return ResourceManager.GetString("Text_Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Логин:.
+        /// </summary>
+        public static string Text_Username {
+            get {
+                return ResourceManager.GetString("Text_Username", resourceCulture);
             }
         }
     }

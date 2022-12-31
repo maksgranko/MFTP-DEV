@@ -61,6 +61,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на null.
+        /// </summary>
+        public static string _null {
+            get {
+                return ResourceManager.GetString("null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Access denied!.
         /// </summary>
         public static string Error_AccessDenied {
@@ -75,15 +84,6 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_BadAddress {
             get {
                 return ResourceManager.GetString("Error_BadAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на This directory is not found..
-        /// </summary>
-        public static string Error_BadFolder {
-            get {
-                return ResourceManager.GetString("Error_BadFolder", resourceCulture);
             }
         }
         
@@ -115,11 +115,20 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на This directory is not found..
+        ///   Ищет локализованную строку, похожую на Connection refused..
         /// </summary>
-        public static string Error_DirectoryNotFound {
+        public static string Error_Connection_Refused_Simple {
             get {
-                return ResourceManager.GetString("Error_DirectoryNotFound", resourceCulture);
+                return ResourceManager.GetString("Error_Connection_Refused_Simple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на This directory/file is not found..
+        /// </summary>
+        public static string Error_DirFileNotFound {
+            get {
+                return ResourceManager.GetString("Error_DirFileNotFound", resourceCulture);
             }
         }
         
@@ -129,6 +138,15 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_EmptyAddress {
             get {
                 return ResourceManager.GetString("Error_EmptyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Folder error..
+        /// </summary>
+        public static string Error_FolderError {
+            get {
+                return ResourceManager.GetString("Error_FolderError", resourceCulture);
             }
         }
         
@@ -223,7 +241,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Refreshing is unavailable..
+        ///   Ищет локализованную строку, похожую на  Refreshing is unavailable..
         /// </summary>
         public static string Error_RefreshingUnavailable {
             get {
@@ -259,6 +277,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Unexcepted error. Setting folder to default..
+        /// </summary>
+        public static string Error_SettingAddressDefault {
+            get {
+                return ResourceManager.GetString("Error_SettingAddressDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Connection timeout. Check your settings, server or internet connection..
         /// </summary>
         public static string Error_Timeout {
@@ -273,15 +300,6 @@ namespace _MFTP_.Resources.Localizations {
         public static string Error_TooFast {
             get {
                 return ResourceManager.GetString("Error_TooFast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Server is unavailable. Connection has been closed..
-        /// </summary>
-        public static string Error_UnavailableServer {
-            get {
-                return ResourceManager.GetString("Error_UnavailableServer", resourceCulture);
             }
         }
         
@@ -394,7 +412,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Disconnected by MFTP..
+        ///   Ищет локализованную строку, похожую на Connection closed by MFTP..
         /// </summary>
         public static string Info_Disconnected_by_Prog {
             get {
@@ -403,7 +421,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Disconnected by User..
+        ///   Ищет локализованную строку, похожую на Connection closed by User..
         /// </summary>
         public static string Info_Disconnected_by_User {
             get {
@@ -430,7 +448,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Input new name for New Folder.
+        ///   Ищет локализованную строку, похожую на Input new name for New Folder:.
         /// </summary>
         public static string Info_InputNameFolder {
             get {
@@ -439,7 +457,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Input new name for File.
+        ///   Ищет локализованную строку, похожую на Input new name for File/Folder:.
         /// </summary>
         public static string Info_InputNewName {
             get {
@@ -502,6 +520,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Apply.
+        /// </summary>
+        public static string Text_Apply {
+            get {
+                return ResourceManager.GetString("Text_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Auto.
         /// </summary>
         public static string Text_Auto {
@@ -556,6 +583,24 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на File.
+        /// </summary>
+        public static string Text_File {
+            get {
+                return ResourceManager.GetString("Text_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Folder.
+        /// </summary>
+        public static string Text_Folder {
+            get {
+                return ResourceManager.GetString("Text_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на FTP Type.
         /// </summary>
         public static string Text_FTPType {
@@ -574,25 +619,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string Text_Options_BetaFunctional {
-            get {
-                return ResourceManager.GetString("Text_Options_BetaFunctional", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string Text_Options_Encoding {
-            get {
-                return ResourceManager.GetString("Text_Options_Encoding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Password.
+        ///   Ищет локализованную строку, похожую на Password:.
         /// </summary>
         public static string Text_Password {
             get {
@@ -610,7 +637,16 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на Additional information.
+        /// </summary>
+        public static string Text_Properties_AddInfo {
+            get {
+                return ResourceManager.GetString("Text_Properties_AddInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Address:.
         /// </summary>
         public static string Text_Properties_Address {
             get {
@@ -619,7 +655,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на Advanced:.
         /// </summary>
         public static string Text_Properties_Advanced {
             get {
@@ -628,7 +664,16 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на Basic information.
+        /// </summary>
+        public static string Text_Properties_BasicInfo {
+            get {
+                return ResourceManager.GetString("Text_Properties_BasicInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Chmod:.
         /// </summary>
         public static string Text_Properties_Chmod {
             get {
@@ -637,7 +682,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на File name:.
         /// </summary>
         public static string Text_Properties_Filename {
             get {
@@ -646,7 +691,16 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на File is unavailable.
+        /// </summary>
+        public static string Text_Properties_FilenameInvalid {
+            get {
+                return ResourceManager.GetString("Text_Properties_FilenameInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mod. date:.
         /// </summary>
         public static string Text_Properties_ModDate {
             get {
@@ -655,7 +709,16 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на No permissions..
+        /// </summary>
+        public static string Text_Properties_NoPerms {
+            get {
+                return ResourceManager.GetString("Text_Properties_NoPerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Size:.
         /// </summary>
         public static string Text_Properties_Size {
             get {
@@ -691,6 +754,82 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Auto Encoding.
+        /// </summary>
+        public static string Text_Settings_AutoEncode {
+            get {
+                return ResourceManager.GetString("Text_Settings_AutoEncode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Beta functional.
+        /// </summary>
+        public static string Text_Settings_BetaFunctional {
+            get {
+                return ResourceManager.GetString("Text_Settings_BetaFunctional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Beta functional is unstable, and don&apos;t/bad working and it has been planed in program.
+        ///Label colors:
+        ///RED: Function isn&apos;t working.
+        ///YELLOW: Function unstable.
+        ///WHITE: New function, uncategorized(or developer is lazy).
+        /// </summary>
+        public static string Text_Settings_BetaMessage {
+            get {
+                return ResourceManager.GetString("Text_Settings_BetaMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Encoding.
+        /// </summary>
+        public static string Text_Settings_Encoding {
+            get {
+                return ResourceManager.GetString("Text_Settings_Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Force ASCII.
+        /// </summary>
+        public static string Text_Settings_ForceASCII {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Force UTF7.
+        /// </summary>
+        public static string Text_Settings_ForceUTF7 {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceUTF7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Force UTF8.
+        /// </summary>
+        public static string Text_Settings_ForceUTF8 {
+            get {
+                return ResourceManager.GetString("Text_Settings_ForceUTF8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на FXP Protocol.
+        /// </summary>
+        public static string Text_Settings_FXPProto {
+            get {
+                return ResourceManager.GetString("Text_Settings_FXPProto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Upload.
         /// </summary>
         public static string Text_Upload {
@@ -700,7 +839,7 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Username.
+        ///   Ищет локализованную строку, похожую на Username:.
         /// </summary>
         public static string Text_Username {
             get {

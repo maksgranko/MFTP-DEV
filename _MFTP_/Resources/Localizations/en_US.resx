@@ -123,9 +123,6 @@
   <data name="Error_BadAddress" xml:space="preserve">
     <value>Bad address. Write address same: "C:/Users/Admin/Desktop"</value>
   </data>
-  <data name="Error_BadFolder" xml:space="preserve">
-    <value>This directory is not found.</value>
-  </data>
   <data name="Error_BadPort" xml:space="preserve">
     <value>Port is incorrect!</value>
   </data>
@@ -135,11 +132,17 @@
   <data name="Error_Connection_Refused" xml:space="preserve">
     <value>Connection refused. Check your Username or Password.</value>
   </data>
-  <data name="Error_DirectoryNotFound" xml:space="preserve">
-    <value>This directory is not found.</value>
+  <data name="Error_Connection_Refused_Simple" xml:space="preserve">
+    <value>Connection refused.</value>
+  </data>
+  <data name="Error_DirFileNotFound" xml:space="preserve">
+    <value>This directory/file is not found.</value>
   </data>
   <data name="Error_EmptyAddress" xml:space="preserve">
     <value>Default folder isn't detected... Redirecting to disk list.</value>
+  </data>
+  <data name="Error_FolderError" xml:space="preserve">
+    <value>Folder error.</value>
   </data>
   <data name="Error_Incorrect_IP" xml:space="preserve">
     <value>Please, input correct IP Address.</value>
@@ -172,7 +175,7 @@
     <value>Write correct port from 0 to 65535!</value>
   </data>
   <data name="Error_RefreshingUnavailable" xml:space="preserve">
-    <value>Refreshing is unavailable.</value>
+    <value> Refreshing is unavailable.</value>
   </data>
   <data name="Error_RefreshingUnavailableServer" xml:space="preserve">
     <value>Client isn't connected to server. Refreshing is unavalable.</value>
@@ -183,14 +186,14 @@
   <data name="Error_SelectDiskToDownload" xml:space="preserve">
     <value>Select disk or folder to download files/folders!</value>
   </data>
+  <data name="Error_SettingAddressDefault" xml:space="preserve">
+    <value>Unexcepted error. Setting folder to default.</value>
+  </data>
   <data name="Error_Timeout" xml:space="preserve">
     <value>Connection timeout. Check your settings, server or internet connection.</value>
   </data>
   <data name="Error_TooFast" xml:space="preserve">
     <value>Too fast!</value>
-  </data>
-  <data name="Error_UnavailableServer" xml:space="preserve">
-    <value>Server is unavailable. Connection has been closed.</value>
   </data>
   <data name="Error_UnexceptedError" xml:space="preserve">
     <value>Unexcepted error.</value>
@@ -229,10 +232,10 @@
     <value>Disconnected</value>
   </data>
   <data name="Info_Disconnected_by_Prog" xml:space="preserve">
-    <value>Disconnected by MFTP.</value>
+    <value>Connection closed by MFTP.</value>
   </data>
   <data name="Info_Disconnected_by_User" xml:space="preserve">
-    <value>Disconnected by User.</value>
+    <value>Connection closed by User.</value>
   </data>
   <data name="Info_Encode_Default" xml:space="preserve">
     <value>Encoding setted to default value.</value>
@@ -241,10 +244,10 @@
     <value>Example.txt</value>
   </data>
   <data name="Info_InputNameFolder" xml:space="preserve">
-    <value>Input new name for New Folder</value>
+    <value>Input new name for New Folder:</value>
   </data>
   <data name="Info_InputNewName" xml:space="preserve">
-    <value>Input new name for File</value>
+    <value>Input new name for File/Folder:</value>
   </data>
   <data name="Info_Joining" xml:space="preserve">
     <value>Joining...</value>
@@ -264,96 +267,120 @@
   <data name="Info_RenameIt" xml:space="preserve">
     <value>Rename it!</value>
   </data>
+  <data name="null" xml:space="preserve">
+    <value>null</value>
+  </data>
+  <data name="Text_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="Text_Auto" xml:space="preserve">
     <value>Auto</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_CreateFile" xml:space="preserve">
     <value>Create File</value>
-    <comment>- doesnt exist in ru, dont use in en_US</comment>
+    <comment>dont use</comment>
   </data>
   <data name="Text_CreateFolder" xml:space="preserve">
     <value>Create Folder</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_CustomPort" xml:space="preserve">
     <value>Custom Port</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Delete" xml:space="preserve">
     <value>Delete</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Download" xml:space="preserve">
     <value>Download</value>
-    <comment>- doesnt exist in ru</comment>
+  </data>
+  <data name="Text_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Text_Folder" xml:space="preserve">
+    <value>Folder</value>
   </data>
   <data name="Text_FTPType" xml:space="preserve">
     <value>FTP Type</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Open" xml:space="preserve">
     <value>Open</value>
-    <comment>- doesnt exist in ru</comment>
-  </data>
-  <data name="Text_Options_BetaFunctional" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
-  </data>
-  <data name="Text_Options_Encoding" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Password" xml:space="preserve">
-    <value>Password</value>
-    <comment>- doesnt exist in ru</comment>
+    <value>Password:</value>
   </data>
   <data name="Text_Properties" xml:space="preserve">
     <value>Properties</value>
-    <comment>- doesnt exist in ru</comment>
+  </data>
+  <data name="Text_Properties_AddInfo" xml:space="preserve">
+    <value>Additional information</value>
   </data>
   <data name="Text_Properties_Address" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>Address:</value>
   </data>
   <data name="Text_Properties_Advanced" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>Advanced:</value>
+  </data>
+  <data name="Text_Properties_BasicInfo" xml:space="preserve">
+    <value>Basic information</value>
   </data>
   <data name="Text_Properties_Chmod" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>Chmod:</value>
   </data>
   <data name="Text_Properties_Filename" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>File name:</value>
+  </data>
+  <data name="Text_Properties_FilenameInvalid" xml:space="preserve">
+    <value>File is unavailable</value>
   </data>
   <data name="Text_Properties_ModDate" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>Mod. date:</value>
+  </data>
+  <data name="Text_Properties_NoPerms" xml:space="preserve">
+    <value>No permissions.</value>
   </data>
   <data name="Text_Properties_Size" xml:space="preserve">
-    <value />
-    <comment>- doesnt exist in ru</comment>
+    <value>Size:</value>
   </data>
   <data name="Text_Refresh" xml:space="preserve">
     <value>Refresh</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Rename" xml:space="preserve">
     <value>Rename</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Settings" xml:space="preserve">
     <value>Settings</value>
-    <comment>- doesnt exist in ru</comment>
+  </data>
+  <data name="Text_Settings_AutoEncode" xml:space="preserve">
+    <value>Auto Encoding</value>
+  </data>
+  <data name="Text_Settings_BetaFunctional" xml:space="preserve">
+    <value>Beta functional</value>
+  </data>
+  <data name="Text_Settings_BetaMessage" xml:space="preserve">
+    <value>Beta functional is unstable, and don't/bad working and it has been planed in program.
+Label colors:
+RED: Function isn't working.
+YELLOW: Function unstable.
+WHITE: New function, uncategorized(or developer is lazy)</value>
+  </data>
+  <data name="Text_Settings_Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="Text_Settings_ForceASCII" xml:space="preserve">
+    <value>Force ASCII</value>
+  </data>
+  <data name="Text_Settings_ForceUTF7" xml:space="preserve">
+    <value>Force UTF7</value>
+  </data>
+  <data name="Text_Settings_ForceUTF8" xml:space="preserve">
+    <value>Force UTF8</value>
+  </data>
+  <data name="Text_Settings_FXPProto" xml:space="preserve">
+    <value>FXP Protocol</value>
   </data>
   <data name="Text_Upload" xml:space="preserve">
     <value>Upload</value>
-    <comment>- doesnt exist in ru</comment>
   </data>
   <data name="Text_Username" xml:space="preserve">
-    <value>Username</value>
-    <comment>- doesnt exist in ru</comment>
+    <value>Username:</value>
   </data>
 </root>
