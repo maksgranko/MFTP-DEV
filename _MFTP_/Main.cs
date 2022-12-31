@@ -33,7 +33,7 @@ namespace _MFTP_
         private string WorkingDirectory_0 = "";
         private string WorkingDirectory_1 = "/";
         private ResourceSet rs;
-#pragma warning restore IDE0044 // Добавить модификатор только для чтения
+#pragma warning restore IDE0044
 
         public MFTP()
         {
