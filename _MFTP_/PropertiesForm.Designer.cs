@@ -38,13 +38,13 @@ namespace _MFTP_
             this.FileAddress_label = new System.Windows.Forms.Label();
             this.FileSize_label = new System.Windows.Forms.Label();
             this.FileName_label = new System.Windows.Forms.Label();
-            this.addgb0 = new System.Windows.Forms.GroupBox();
-            this.Perms = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.gb1 = new System.Windows.Forms.GroupBox();
+            this.Advanced = new System.Windows.Forms.Label();
+            this.Advanced_label = new System.Windows.Forms.Label();
             this.Chmod_label = new System.Windows.Forms.Label();
             this.Chmod = new System.Windows.Forms.Label();
             this.gb0.SuspendLayout();
-            this.addgb0.SuspendLayout();
+            this.gb1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb0
@@ -152,41 +152,41 @@ namespace _MFTP_
             this.FileName_label.TabIndex = 1;
             this.FileName_label.Text = "File name:";
             // 
-            // addgb0
+            // gb1
             // 
-            this.addgb0.Controls.Add(this.Perms);
-            this.addgb0.Controls.Add(this.label2);
-            this.addgb0.Controls.Add(this.Chmod_label);
-            this.addgb0.Controls.Add(this.Chmod);
-            this.addgb0.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.addgb0.Location = new System.Drawing.Point(4, 130);
-            this.addgb0.Name = "addgb0";
-            this.addgb0.Size = new System.Drawing.Size(329, 92);
-            this.addgb0.TabIndex = 8;
-            this.addgb0.TabStop = false;
-            this.addgb0.Text = "Additional information";
+            this.gb1.Controls.Add(this.Advanced);
+            this.gb1.Controls.Add(this.Advanced_label);
+            this.gb1.Controls.Add(this.Chmod_label);
+            this.gb1.Controls.Add(this.Chmod);
+            this.gb1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.gb1.Location = new System.Drawing.Point(4, 130);
+            this.gb1.Name = "gb1";
+            this.gb1.Size = new System.Drawing.Size(329, 92);
+            this.gb1.TabIndex = 8;
+            this.gb1.TabStop = false;
+            this.gb1.Text = "Additional information";
             // 
-            // Perms
+            // Advanced
             // 
-            this.Perms.AutoSize = true;
-            this.Perms.Location = new System.Drawing.Point(79, 34);
-            this.Perms.MaximumSize = new System.Drawing.Size(246, 60);
-            this.Perms.Name = "Perms";
-            this.Perms.Size = new System.Drawing.Size(27, 15);
-            this.Perms.TabIndex = 11;
-            this.Perms.Text = "null";
+            this.Advanced.AutoSize = true;
+            this.Advanced.Location = new System.Drawing.Point(79, 34);
+            this.Advanced.MaximumSize = new System.Drawing.Size(246, 60);
+            this.Advanced.Name = "Advanced";
+            this.Advanced.Size = new System.Drawing.Size(27, 15);
+            this.Advanced.TabIndex = 11;
+            this.Advanced.Text = "null";
             // 
-            // label2
+            // Advanced_label
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(14, 34);
-            this.label2.MaximumSize = new System.Drawing.Size(80, 15);
-            this.label2.MinimumSize = new System.Drawing.Size(60, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 15);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Advanced:";
+            this.Advanced_label.AutoSize = true;
+            this.Advanced_label.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Advanced_label.Location = new System.Drawing.Point(14, 34);
+            this.Advanced_label.MaximumSize = new System.Drawing.Size(80, 15);
+            this.Advanced_label.MinimumSize = new System.Drawing.Size(60, 15);
+            this.Advanced_label.Name = "Advanced_label";
+            this.Advanced_label.Size = new System.Drawing.Size(63, 15);
+            this.Advanced_label.TabIndex = 10;
+            this.Advanced_label.Text = "Advanced:";
             // 
             // Chmod_label
             // 
@@ -215,7 +215,7 @@ namespace _MFTP_
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(341, 229);
-            this.Controls.Add(this.addgb0);
+            this.Controls.Add(this.gb1);
             this.Controls.Add(this.gb0);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -226,8 +226,8 @@ namespace _MFTP_
             this.Text = "Properties";
             this.gb0.ResumeLayout(false);
             this.gb0.PerformLayout();
-            this.addgb0.ResumeLayout(false);
-            this.addgb0.PerformLayout();
+            this.gb1.ResumeLayout(false);
+            this.gb1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -243,9 +243,9 @@ namespace _MFTP_
         private System.Windows.Forms.Label Date0;
         private System.Windows.Forms.Label Date0_label;
         private System.Windows.Forms.TextBox Filename;
-        private System.Windows.Forms.GroupBox addgb0;
-        private System.Windows.Forms.Label Perms;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox gb1;
+        private System.Windows.Forms.Label Advanced;
+        private System.Windows.Forms.Label Advanced_label;
         private System.Windows.Forms.Label Chmod_label;
         private System.Windows.Forms.Label Chmod;
     }

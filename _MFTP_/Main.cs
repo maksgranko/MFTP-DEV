@@ -2,16 +2,14 @@
 using MFTP;
 using System;
 using System.IO;
-using System.Windows.Forms;
-using System.Globalization;
 using System.Resources;
-using System.Reflection;
-using _MFTP_.Resources.Localizations;
+using System.Windows.Forms;
 
 namespace _MFTP_
 {
     public partial class MFTP : Form
     {
+#pragma warning disable IDE0044 // Добавить модификатор только для чтения
         private ushort FTP_ConnectedState;
         private ushort FTP_FTPType;
         private ushort FTP_PortFromType;
@@ -34,31 +32,45 @@ namespace _MFTP_
         private string[,] DeleteItemName = new string[255,255];
         private string WorkingDirectory_0 = "";
         private string WorkingDirectory_1 = "/";
-        private string setlocale = "en_US";
-        private static ResourceManager rm = en_US.ResourceManager;
-        private static CultureInfo cult = CultureInfo.CreateSpecificCulture("en_US");
-        private static ResourceSet rs = rm.GetResourceSet(cult, true, true);
+        private ResourceSet rs;
+#pragma warning restore IDE0044 // Добавить модификатор только для чтения
 
         public MFTP()
         {
             InitializeComponent();
-            InitializeConfiguration();
             Localizations();
+            InitializeConfiguration();
             UpdateVar();
+            FTP_Error.Text = "";
             InitializeServer_0_ListBox();
         }
         private void Localizations()
         {
-        setlocale = CultureInfo.CurrentUICulture.ToString().Replace("-", "_");
-            if (File.Exists("Resources\\Localizations\\" + setlocale + ".resx"))
-            {
-                if (setlocale == "ru_RU")
-                {
-                    rm = ru_RU.ResourceManager;
-                    cult = CultureInfo.CreateSpecificCulture("ru_RU");
-                    rs = rm.GetResourceSet(cult, true, true);
-                }
-            }
+            Localizations locale = new Localizations();
+            rs = locale.Setlocale();
+            FTP_Username_text.Text = rs.GetString("Text_Username");
+            FTP_Password_Text.Text = rs.GetString("Text_Password");
+            AdvancedSettings_btn.Text = rs.GetString("Text_Settings");
+            Refresh_list_1.Text = rs.GetString("Text_Refresh");
+            autoToolStripMenuItem.Text = rs.GetString("Text_Auto");
+            customPortToolStripMenuItem.Text = rs.GetString("Text_CustomPort");
+            CreateFolderinConMenu.Text = rs.GetString("Text_CreateFolder");
+            CreateFolderinConMenu_0.Text = rs.GetString("Text_CreateFolder");
+            CreateinConMenu_0.Text = rs.GetString("Text_CreateFolder");
+            CreateinConMenu_1.Text = rs.GetString("Text_CreateFolder");
+            DeleteinConMenu_0.Text = rs.GetString("Text_Delete");
+            DeleteinConMenu_1.Text = rs.GetString("Text_Delete");
+            DownloadinConMenu_1.Text = rs.GetString("Text_Download");
+            OpeninConMenu_0.Text = rs.GetString("Text_Open");
+            OpeninConMenu_1.Text = rs.GetString("Text_Open");
+            PropertiesinConMenu_0.Text = rs.GetString("Text_Properties");
+            PropertiesinConMenu_1.Text = rs.GetString("Text_Properties");
+            RenameinConMenu_0.Text = rs.GetString("Text_Rename");
+            RenameinConMenu_1.Text = rs.GetString("Text_Rename");
+            UploadinConMenu_0.Text = rs.GetString("Text_Upload");
+            FTP_Connect_btn.Text = rs.GetString("Info_Connect");
+            toolStripDropDownButton1.Text = rs.GetString("Text_FTPType");
+            FTP_CustomPort_Text.Text = rs.GetString("Text_CustomPort") + ":";
         }
 
         private void UpdateVar()
@@ -242,7 +254,7 @@ namespace _MFTP_
 
             else
             {
-                FTP_Error.Text = "Encoding setted to default value.";
+                FTP_Error.Text = rs.GetString("Info_Encode_Default");
                 Properties.Settings.Default.Encoding = 0;
                 client.Encoding = System.Text.Encoding.Default;
             }
@@ -250,7 +262,7 @@ namespace _MFTP_
         public void Connect()
         {
             if (FTP_IP_Box.Text.Length < 7 || FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1") {
-                FTP_Error.Text = "Please, input correct IP Address. ";
+                FTP_Error.Text = rs.GetString("Error_Incorrect_IP");
                 FTP_ConnectedState = 4;
                 goto FTP_SkipConnect;
             }
@@ -262,7 +274,7 @@ namespace _MFTP_
                 ConnectedBefore = false;
                 client.Disconnect();
                 FTP_ConnectedState = 0;
-                FTP_Error.Text = "Connection closed by User.";
+                FTP_Error.Text = rs.GetString("Info_Disconnected_by_User");
                 goto FTP_SkipConnect;
 
             }
@@ -282,21 +294,21 @@ namespace _MFTP_
                     catch (System.AggregateException)
                     {
                         FTP_ConnectedState = 4;
-                        FTP_Error.Text = "IP supports only IPv6 or IPv4. Check IP Address.";
+                        FTP_Error.Text = rs.GetString("Error_UnsupportedIP");
                         goto FTP_SkipConnect;
 
                     }
                     catch (TimeoutException)
                     {
                         FTP_ConnectedState = 0;
-                        FTP_Error.Text = "Server is unavailable. Connection has been closed.";
+                        FTP_Error.Text = rs.GetString("Error_IsntConnected");
                         goto FTP_SkipConnect;
 
                     }
                     catch (FtpAuthenticationException)
                     {
                         FTP_ConnectedState = 4;
-                        FTP_Error.Text = "Connection refused. Check your Username or Password.";
+                        FTP_Error.Text = rs.GetString("Error_Connection_Refused");
                         goto FTP_SkipConnect;
                     }
                     catch (Exception e)
@@ -318,33 +330,33 @@ namespace _MFTP_
                         catch (FtpAuthenticationException)
                         {
                             FTP_ConnectedState = 4;
-                            FTP_Error.Text = "Connection refused. Check your Username or Password.";
+                            FTP_Error.Text = rs.GetString("Error_Connection_Refused");
                             goto FTP_SkipConnect;
                         }
                         catch (System.Net.Sockets.SocketException)
                         {
-                            FTP_Error.Text = "Connection refused.";
-                            FTP_ConnectStatus.Text = "Closed.";
+                            FTP_Error.Text = rs.GetString("Error_Connection_Refused_Simple");
+                            FTP_ConnectStatus.Text = rs.GetString("Info_Closed");
 
                         }
                         catch (System.AggregateException)
                         {
                             FTP_ConnectedState = 4;
-                            FTP_Error.Text = "IP supports only IPv6 or IPv4. Check IP Address.";
+                            FTP_Error.Text = rs.GetString("Error_UnsupportedIP");
                             goto FTP_SkipConnect;
 
                         }
                         catch (TimeoutException)
                         {
                             FTP_ConnectedState = 0;
-                            FTP_Error.Text = "Server is unavailable. Connection has been closed.";
+                            FTP_Error.Text = rs.GetString("Error_IsntConnected");
                             goto FTP_SkipConnect;
 
                         }
                         catch (Exception err)
                         {
                             FTP_Error.Text = err.Message;
-                            FTP_ConnectStatus.Text = "Closed.";
+                            FTP_ConnectStatus.Text = rs.GetString("Info_Closed");
                         }
 
                     }
@@ -365,33 +377,33 @@ namespace _MFTP_
                     catch (TimeoutException)
                     {
                         FTP_ConnectedState = 0;
-                        FTP_Error.Text = "Server is unavailable. Connection has been closed.";
+                        FTP_Error.Text = rs.GetString("Error_IsntConnected");
                         goto FTP_SkipConnect;
 
                     }
                     catch (FtpAuthenticationException)
                     {
                         FTP_ConnectedState = 4;
-                        FTP_Error.Text = "Connection refused. Check your Username or Password.";
+                        FTP_Error.Text = rs.GetString("Error_Connection_Refused");
                         goto FTP_SkipConnect;
                     }
                     catch (System.AggregateException)
                     {
                         FTP_ConnectedState = 4;
-                        FTP_Error.Text = "IP supports only IPv6 or IPv4. Check IP Address.";
+                        FTP_Error.Text = rs.GetString("Error_UnsupportedIP");
                         goto FTP_SkipConnect;
 
                     }
                     catch (System.Net.Sockets.SocketException)
                     {
-                        FTP_Error.Text = "Connection refused.";
-                        FTP_ConnectStatus.Text = "Closed.";
+                        FTP_Error.Text = rs.GetString("Error_Connection_Refused_Simple");
+                        FTP_ConnectStatus.Text = rs.GetString("Info_Closed");
 
                     }
                     catch (Exception err)
                     {
                         FTP_Error.Text = err.Message;
-                        FTP_ConnectStatus.Text = "Closed.";
+                        FTP_ConnectStatus.Text = rs.GetString("Info_Closed");
                     }
                 }
                 if (client.IsConnected == true)
@@ -401,7 +413,7 @@ namespace _MFTP_
                 else if (client.IsDisposed == true)
                 {
                     FTP_ConnectedState = 4;
-                    FTP_Error.Text = "Connection refused. Check your Username or Password.";
+                    FTP_Error.Text = rs.GetString("Error_Connection_Refused");
                 }
                 else if (client.IsAuthenticated == true)
                 {
@@ -438,7 +450,7 @@ namespace _MFTP_
             {
                 client.Disconnect();
                 FTP_ConnectedState = 0;
-                FTP_Error.Text = "Connection timeout. Check your settings, server or internet connection.";
+                FTP_Error.Text = rs.GetString("Error_Timeout");
             }
             catch (Exception err)
             {
@@ -523,17 +535,17 @@ namespace _MFTP_
             try
             {
                 Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(FTP_CustomPort_Box.Text);
-                FTP_Error.Text = "Custom port has been saved!";
+                FTP_Error.Text = rs.GetString("Info_PortSaved");
             }
             catch (System.OverflowException)
             {
-                FTP_Error.Text = "Port is incorrect!";
+                FTP_Error.Text = rs.GetString("Error_BadPort");
                 FTP_CustomPort_Box.Text = "";
             }
             catch (System.FormatException)
             {
                 FTP_CustomPort_Box.Text = "";
-                FTP_Error.Text = "Write correct port from 0 to 65535!";
+                FTP_Error.Text = rs.GetString("Error_PortOutOfRange");
             }
             catch (Exception err)
             {
@@ -593,14 +605,14 @@ namespace _MFTP_
                         }
                         else
                         {
-                            FTP_Error.Text = "This file or directory can't be deleted.(named as \"..\" or same exception)";
+                            FTP_Error.Text = rs.GetString("Error_IsntDeleted");
                         }
                     }
                     Refresh_FileList_1();
                 }
                 catch (FluentFTP.FtpCommandException)
                 {
-                    FTP_Error.Text = "Unexcepted error.";
+                    FTP_Error.Text = rs.GetString("Error_UnexceptedError");
                 }
                 catch (Exception e)
                 {
@@ -608,7 +620,7 @@ namespace _MFTP_
                 }
             }
         }
-        private FtpClient getClient()
+        private FtpClient GetClient()
         {
             var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
             if (client.IsConnected == false)
@@ -624,7 +636,7 @@ namespace _MFTP_
                 if (FTP_ConnectedState == 1)
                 {
                     Server_1_listBox.Items.Clear();
-                    var client = getClient();
+                    var client = GetClient();
                     Server_1_listBox.Items.Insert(0, "..");
                     SetEncoding(client);
 
@@ -646,12 +658,12 @@ namespace _MFTP_
                 }
                 else
                 {
-                    FTP_Error.Text += " Client isn't connected to server. Refreshing is unavalable.";
+                    FTP_Error.Text += rs.GetString("Error_RefreshingUnavailableServer");
                 }
             }
             catch (System.ArgumentException)
             {
-                FTP_Error.Text = "Refreshing is unavailable.";
+                FTP_Error.Text = rs.GetString("Error_RefreshingUnavailable");
             }
             catch (Exception e)
             {
@@ -679,7 +691,7 @@ namespace _MFTP_
                 {
                     if (CopyMoveMode[1] == false)
                     {
-                        MoveinConMenu_1.Text = "Move";
+                        MoveinConMenu_1.Text = rs.GetString("Info_Move");
                         if (Server_1_listBox.SelectedItem != null)
                         {
                             OpeninConMenu_1.Visible = true;
@@ -703,7 +715,7 @@ namespace _MFTP_
                     }
                     else if (CopyMoveMode[1] == true)
                     {
-                        MoveinConMenu_1.Text = "Move there";
+                        MoveinConMenu_1.Text = rs.GetString("Info_MoveThere");
                         if (Server_1_listBox.SelectedItem != null)
                         {
                             OpeninConMenu_1.Visible = true;
@@ -744,7 +756,7 @@ namespace _MFTP_
 
         private void Server_1_EnterButton_Click(object sender, EventArgs e)
         {
-            var client = getClient();
+            var client = GetClient();
             SetEncoding(client);
             if (FTP_ConnectedState == 1)
             {
@@ -757,7 +769,7 @@ namespace _MFTP_
                 }
                 catch (FluentFTP.FtpCommandException)
                 {
-                    FTP_Error.Text = "Unexcepted error. Setting folder to default.";
+                    FTP_Error.Text = rs.GetString("Error_SettingAddressDefault");
                     Server_1_Textbox.Text = "/";
 
                 }
@@ -768,7 +780,7 @@ namespace _MFTP_
             }
             else
             {
-                FTP_Error.Text = "Directory changing is unavailable now.";
+                FTP_Error.Text = rs.GetString("Info_CantChangeDir");
             }
         }
 
@@ -778,7 +790,7 @@ namespace _MFTP_
             {
                 if (Server_1_listBox.SelectedItem != null)
                 {
-                    var client = getClient();
+                    var client = GetClient();
                     SetEncoding(client);
                     try
                     {
@@ -800,14 +812,14 @@ namespace _MFTP_
 
                             if (tmp == null)
                             {
-                                FTP_Error.Text = "This file can't be opened.";
+                                FTP_Error.Text = rs.GetString("Error_IsntOpened");
                             }
                             ItemType = tmp.ToString();
                         }
 
                         if (ItemType == "File")
                         {
-                            FTP_Error.Text = "File is can't be open now!";
+                            FTP_Error.Text = rs.GetString("Error_IsntOpened");
                         }
                         else if (ItemType == "Directory")
                         {
@@ -819,15 +831,15 @@ namespace _MFTP_
                     }
                     catch (System.NullReferenceException)
                     {
-                        FTP_Error.Text = "Folder error.";
+                        FTP_Error.Text = rs.GetString("Error_FolderError");
                     }
                     catch (FluentFTP.FtpCommandException)
                     {
-                        FTP_Error.Text = "Opening file is unavailable now.";
+                        FTP_Error.Text = rs.GetString("Error_IsntOpened");
                     }
                     catch (ArgumentNullException)
                     {
-                        FTP_Error.Text = "Too fast!";
+                        FTP_Error.Text = rs.GetString("Error_TooFast");
                     }
                     catch (Exception err)
                     {
@@ -862,18 +874,16 @@ namespace _MFTP_
         {
             if (FTP_ConnectedState == 1)
             {
-                var client = getClient();
+                var client = GetClient();
                 SetEncoding(client);
-                string[] TextLabels = new string[3];
-                TextLabels[0] = "Input name of your New folder";
-                TextLabels[1] = "New Folder";
-                TextLabels[2] = "Create!";
-
-                Form IBform = new InputBoxForm(TextLabels);
-
+                Form IBform = new InputBoxForm(0);
                 IBform.ShowDialog();
-                string Out = InputBoxForm.Output();
-                client.CreateDirectory(WorkingDirectory_1 + "/" + Out);
+
+                if (InputBoxForm.CorrectlyClosed == true)
+                {
+                    string Out = InputBoxForm.Output();
+                    client.CreateDirectory(WorkingDirectory_1 + "/" + Out);
+                }
             }
             Refresh_FileList_1();
 
@@ -886,6 +896,7 @@ namespace _MFTP_
 
         private void Refresh_list_1_Click(object sender, EventArgs e)
         {
+            FTP_Error.Text = "";
             Refresh_FileList_0();
             Refresh_FileList_1();
         }
@@ -907,7 +918,7 @@ namespace _MFTP_
             {
                 if (FTP_ConnectedState == 1)
                 {
-                    var client = getClient();
+                    var client = GetClient();
                     SetEncoding(client);
                     try
                     {
@@ -923,7 +934,7 @@ namespace _MFTP_
 
                                 if (tmp == null)
                                 {
-                                    FTP_Error.Text = "This is file can't be moved.";
+                                    FTP_Error.Text = rs.GetString("Error_IsntMoved");
                                 }
                                 string ItemType = tmp.ToString();
                                 if (ItemType == "Directory")
@@ -937,7 +948,7 @@ namespace _MFTP_
                             }
                             else
                             {
-                                FTP_Error.Text = "This file/directory can't be copied/moved(named as \"..\" or same exception).";
+                                FTP_Error.Text = rs.GetString("Error_IsntMoved");
                             }
                         }
                         Refresh_FileList_1();
@@ -946,15 +957,15 @@ namespace _MFTP_
 
                     catch (System.NullReferenceException)
                     {
-                        FTP_Error.Text = "error.";
+                        FTP_Error.Text = rs.GetString("Error_UnexceptedError");
                     }
                     catch (FluentFTP.FtpCommandException)
                     {
-                        FTP_Error.Text = "Moving error.";
+                        FTP_Error.Text = rs.GetString("Error_MovingError");
                     }
                     catch (ArgumentNullException)
                     {
-                        FTP_Error.Text = "Too fast!";
+                        FTP_Error.Text = rs.GetString("Error_TooFast");
                     }
                     catch (Exception err)
                     {
@@ -972,26 +983,25 @@ namespace _MFTP_
         {
             if (Server_1_listBox.SelectedItem.ToString() == "..")
             {
-                FTP_Error.Text = "This folder can't be renamed.";
+                FTP_Error.Text = rs.GetString("Error_IsntRenamed");
             }
             else
             {
-                var client = getClient();
+                var client = GetClient();
                 SetEncoding(client);
                 string File;
                 File = Server_1_listBox.SelectedItem.ToString();
-                string[] TextLabels = new string[3];
-                TextLabels[0] = "Input new name of this file/folder:";
-                TextLabels[1] = "example.png";
-                TextLabels[2] = "Rename it!";
-                Form IBform = new InputBoxForm(TextLabels);
+                Form IBform = new InputBoxForm(1);
 
                 try
                 {
                     IBform.ShowDialog();
-                    string Out = InputBoxForm.Output();
-                    client.Rename(WorkingDirectory_1 + "/" + File, WorkingDirectory_1 + "/" + Out);
-                    Refresh_FileList_1();
+                    if (InputBoxForm.CorrectlyClosed == true)
+                    {
+                        string Out = InputBoxForm.Output();
+                        client.Rename(WorkingDirectory_1 + "/" + File, WorkingDirectory_1 + "/" + Out);
+                        Refresh_FileList_1();
+                    }
                 }
                 catch (FluentFTP.FtpCommandException err)
                 {
@@ -1005,7 +1015,7 @@ namespace _MFTP_
         }
         private void DownloadinConMenu_1_Click(object sender, EventArgs e)
         {
-            var client = getClient();
+            var client = GetClient();
             SetEncoding(client);
 
             Downloadcount = 0;
@@ -1023,7 +1033,7 @@ namespace _MFTP_
                     FtpObjectType? tmp = client.GetFilePermissions(DownloadTarget[i]).Type;
                     if (tmp == null)
                     {
-                        FTP_Error.Text = "This is file can't be downloaded.";
+                        FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
                     }
                     string ItemType = tmp.ToString();
                     if (ItemType == "Directory")
@@ -1037,25 +1047,25 @@ namespace _MFTP_
                 }
                     else
                     {
-                        FTP_Error.Text = "One or more files or directories can't be downloaded.(named as \"..\" or same exception)";
+                        FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
                     }
                 }
             }
             catch (NullReferenceException)
             {
-                FTP_Error.Text = "error.";
+                FTP_Error.Text = rs.GetString("Error_UnexceptedError");
             }
             catch (FtpCommandException)
             {
-                FTP_Error.Text = "Moving error.";
+                FTP_Error.Text = rs.GetString("Error_MovingError");
             }
             catch (ArgumentNullException)
             {
-                FTP_Error.Text = "Too fast!";
+                FTP_Error.Text = rs.GetString("Error_TooFast");
             }
             catch (ArgumentException)
             {
-                FTP_Error.Text = "Select disk or folder to download files/folders!";
+                FTP_Error.Text = rs.GetString("Error_SelectDiskToDownload");
             }
             catch (Exception err)
             {
@@ -1067,7 +1077,8 @@ namespace _MFTP_
 
         private void GotoRoot_1_Click(object sender, EventArgs e)
         {
-            var client = getClient();
+            FTP_Error.Text = "";
+            var client = GetClient();
             SetEncoding(client);
             client.SetWorkingDirectory("/");
             WorkingDirectory_1 = client.GetWorkingDirectory().ToString();
@@ -1081,6 +1092,7 @@ namespace _MFTP_
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void Disk_list()
         {
+            FTP_Error.Text = "";
             Disk_block = true;
             WorkingDirectory_0 = "";
             Server_0_listBox.Items.Clear();
@@ -1122,7 +1134,7 @@ namespace _MFTP_
             }
             else
             {
-                FTP_Error.Text += " Please, select disk.";
+                FTP_Error.Text += rs.GetString("Error_SelectDisk");
             }
         }
 
@@ -1138,7 +1150,7 @@ namespace _MFTP_
             catch (System.ArgumentException)
             {
                 Disk_list();
-                FTP_Error.Text = "Detected empty default folder... Redirecting to disk list.";
+                FTP_Error.Text = rs.GetString("Error_EmptyAddress");
 
             }
             catch (System.IO.IOException)
@@ -1163,11 +1175,11 @@ namespace _MFTP_
             }
             catch (System.IO.DirectoryNotFoundException)
             {
-                FTP_Error.Text = "This directory is not found.";
+                FTP_Error.Text = rs.GetString("Error_DirFileNotFound");
             }
             catch (System.IO.IOException)
             {
-                FTP_Error.Text = "Bad address. Write address same: \"C:/Users/Admin/Desktop\"";
+                FTP_Error.Text = rs.GetString("Error_BadAddress");
             }
             catch (System.ArgumentException)
             {
@@ -1195,7 +1207,7 @@ namespace _MFTP_
                     {
                         if (CopyMoveMode[0] == false)
                         {
-                            MoveinConMenu_0.Text = "Move";
+                            MoveinConMenu_0.Text = rs.GetString("Info_Move");
                             if (Server_0_listBox.SelectedItem != null)
                             {
                                 OpeninConMenu_0.Visible = true;
@@ -1219,7 +1231,7 @@ namespace _MFTP_
                         }
                         else if (CopyMoveMode[0] == true)
                         {
-                            MoveinConMenu_0.Text = "Move there";
+                            MoveinConMenu_0.Text = rs.GetString("Info_MoveThere");
                             if (Server_0_listBox.SelectedItem != null)
                             {
                                 OpeninConMenu_0.Visible = true;
@@ -1276,7 +1288,7 @@ namespace _MFTP_
                     {
                         if (CopyMoveMode[0] == false)
                         {
-                            MoveinConMenu_0.Text = "Move";
+                            MoveinConMenu_0.Text = rs.GetString("Info_Move");
                             if (Server_0_listBox.SelectedItem != null)
                             {
                                 OpeninConMenu_0.Visible = true;
@@ -1300,7 +1312,7 @@ namespace _MFTP_
                         }
                         else if (CopyMoveMode[0] == true)
                         {
-                            MoveinConMenu_0.Text = "Move there";
+                            MoveinConMenu_0.Text = rs.GetString("Info_MoveThere");
                             if (Server_0_listBox.SelectedItem != null)
                             {
                                 OpeninConMenu_0.Visible = true;
@@ -1387,17 +1399,17 @@ namespace _MFTP_
                         }
                         else
                         {
-                            FTP_Error.Text = "Files is can't be open.";
+                            FTP_Error.Text = rs.GetString("Error_IsntOpened");
                         }
                         Refresh_FileList_0();
                     }
                     catch (System.IO.FileNotFoundException)
                     {
-                        FTP_Error.Text = "Folder/File not found.";
+                        FTP_Error.Text = rs.GetString("Error_DirFileNotFound");
                     }
                     catch (System.UnauthorizedAccessException)
                     {
-                        FTP_Error.Text = "Access denied!";
+                        FTP_Error.Text = rs.GetString("Error_AccessDenied");
                     }
                     catch (Exception err)
                     {
@@ -1409,7 +1421,7 @@ namespace _MFTP_
 
         private void UploadinConMenu_0_Click(object sender, EventArgs e)
         {
-            var client = getClient();
+            var client = GetClient();
             SetEncoding(client);
 
             Uploadcount = 0;
@@ -1437,21 +1449,21 @@ namespace _MFTP_
                     }
                     else
                     {
-                        FTP_Error.Text = "One or more files or directories can't be uploaded.(named as \"..\" or same exception)";
+                        FTP_Error.Text = rs.GetString("Error_IsntUpload");
                     }
                 }
             }
             catch (System.NullReferenceException)
             {
-                FTP_Error.Text = "Error.";
+                FTP_Error.Text = rs.GetString("Error_UnexceptedError");
             }
             catch (FluentFTP.FtpCommandException err)
             {
-                FTP_Error.Text = "Moving error. Full inf. : " + err.Message;
+                FTP_Error.Text = rs.GetString("Error_MovingError") + err.Message;
             }
             catch (ArgumentNullException)
             {
-                FTP_Error.Text = "Too fast!";
+                FTP_Error.Text = rs.GetString("Error_TooFast");
             }
             catch (FluentFTP.FtpException err)
             {
@@ -1468,25 +1480,24 @@ namespace _MFTP_
 
         private void CreateFolderinConMenu_0_Click(object sender, EventArgs e)
         {
-            string[] TextLabels = new string[3];
-            TextLabels[0] = "Input name of your New folder";
-            TextLabels[1] = "New Folder";
-            TextLabels[2] = "Create!";
-            Form IBform = new InputBoxForm(TextLabels);
-            IBform.ShowDialog();
-            string Out = InputBoxForm.Output();
-            try
+            Form IBform = new InputBoxForm(0);
+            IBform.ShowDialog(); 
+            if (InputBoxForm.CorrectlyClosed == true)
             {
-                Directory.CreateDirectory(WorkingDirectory_0 + "/" + Out);
-                Refresh_FileList_0();
-            }
-            catch (System.IO.IOException err)
-            {
-                FTP_Error.Text = err.Message;
-            }
-            catch (Exception err)
-            {
-                FTP_Error.Text = err.Message;
+                string Out = InputBoxForm.Output();
+                try
+                {
+                    Directory.CreateDirectory(WorkingDirectory_0 + "/" + Out);
+                    Refresh_FileList_0();
+                }
+                catch (System.IO.IOException err)
+                {
+                    FTP_Error.Text = err.Message;
+                }
+                catch (Exception err)
+                {
+                    FTP_Error.Text = err.Message;
+                }
             }
         }
 
@@ -1541,7 +1552,7 @@ namespace _MFTP_
                     }
                     else
                     {
-                        FTP_Error.Text = "One or more items can't be deleted.(named \"..\" or same exception.)";
+                        FTP_Error.Text = rs.GetString("Error_IsntDeleted");
                     }
                 }
             }
@@ -1617,7 +1628,7 @@ namespace _MFTP_
                         }
                         else
                         {
-                            FTP_Error.Text = "This is file/directory can't be moved/copied (named as \"..\" or same exception).";
+                            FTP_Error.Text = rs.GetString("Error_IsntMoved");
                         }
                     }
                     Refresh_FileList_0();
@@ -1641,36 +1652,35 @@ namespace _MFTP_
         {
             if (Server_0_listBox.SelectedItem.ToString() == "..")
             {
-                FTP_Error.Text = "This folder is can't be renamed.";
+                FTP_Error.Text = rs.GetString("Error_IsntRenamed");
             }
             else
             {
-                string[] TextLabels = new string[3];
-                TextLabels[0] = "Input new name of this file/folder:";
-                TextLabels[1] = "example.png";
-                TextLabels[2] = "Rename it!";
-                Form IBform = new InputBoxForm(TextLabels);
+                Form IBform = new InputBoxForm(1);
                 IBform.ShowDialog();
-                string Out = InputBoxForm.Output();
-
-                try
+                if (InputBoxForm.CorrectlyClosed == true)
                 {
-                    CopyMoveTarget[0, 0] = WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString();
+                    string Out = InputBoxForm.Output();
 
-                    FileAttributes attr = File.GetAttributes(CopyMoveTarget[0, 0]);
-                    if (attr.HasFlag(FileAttributes.Directory))
+                    try
                     {
-                        Directory.Move(CopyMoveTarget[0, 0], WorkingDirectory_0 + "/" + Out);
+                        CopyMoveTarget[0, 0] = WorkingDirectory_0 + "/" + Server_0_listBox.SelectedItem.ToString();
+
+                        FileAttributes attr = File.GetAttributes(CopyMoveTarget[0, 0]);
+                        if (attr.HasFlag(FileAttributes.Directory))
+                        {
+                            Directory.Move(CopyMoveTarget[0, 0], WorkingDirectory_0 + "/" + Out);
+                        }
+                        else
+                        {
+                            File.Move(CopyMoveTarget[0, 0], WorkingDirectory_0 + "/" + Out);
+                        }
+                        Refresh_FileList_0();
                     }
-                    else
+                    catch (Exception err)
                     {
-                        File.Move(CopyMoveTarget[0, 0], WorkingDirectory_0 + "/" + Out);
+                        FTP_Error.Text = err.Message;
                     }
-                    Refresh_FileList_0();
-                }
-                catch (Exception err)
-                {
-                    FTP_Error.Text = err.Message;
                 }
             }
         }

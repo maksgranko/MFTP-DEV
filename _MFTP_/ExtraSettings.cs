@@ -1,15 +1,38 @@
-﻿using _MFTP_.Properties;
+﻿using _MFTP_;
+using _MFTP_.Properties;
 using System;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace MFTP
 {
     public partial class ExtraSettings : Form
     {
+        private ResourceSet rs;
         public ExtraSettings()
         {
             InitializeComponent();
+            Localizations();
             InitializeConfiguration();
+        }
+        private void Localizations()
+        {
+            Localizations locale = new Localizations();
+            rs = locale.Setlocale();
+            gb0.Text = rs.GetString("Text_Settings_Encoding");
+            l0.Text = rs.GetString("Text_Settings_Encoding") + ":";
+            Force_ASCII_chbox.Text = rs.GetString("Text_Settings_ForceASCII");
+            Force_Auto_chbox.Text = rs.GetString("Text_Settings_AutoEncode");
+            Force_UTF7_chbox.Text = rs.GetString("Text_Settings_ForceUTF7");
+            Force_UTF8_chbox.Text = rs.GetString("Text_Settings_ForceUTF8");
+            gb1.Text = rs.GetString("Text_Settings_BetaFunctional");
+            l1.Text = rs.GetString("Text_Settings_BetaFunctional") + ":";
+            FXP_Proto_cb0.Text = rs.GetString("Text_Settings_FXPProto");
+            SaveSettings.Text = rs.GetString("Text_Apply");
+
+
+
+
         }
 
         private void InitializeConfiguration()
@@ -84,7 +107,7 @@ namespace MFTP
             Force_Auto_chbox.Checked = true;
         }
 
-        private void l0_Click(object sender, EventArgs e)
+        private void L0_Click(object sender, EventArgs e)
         {
             Settings.Default.Encoding = 0;
             Force_ASCII_chbox.Checked = false;
@@ -93,14 +116,14 @@ namespace MFTP
             Force_Auto_chbox.Checked = true;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void l1_Click(object sender, EventArgs e)
+        private void L1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Beta functional is unstable, it don't working or working too bad and it has been planed in program.\nRED: Function isn't working.\nYELLOW: Function unstable.\nWHITE: New fuction, uncategorized(or developer is lazy)");
+            MessageBox.Show(rs.GetString("Text_Settings_BetaMessage"));
         }
 
     }
