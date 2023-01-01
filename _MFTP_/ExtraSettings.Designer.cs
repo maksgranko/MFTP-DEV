@@ -1,5 +1,5 @@
 ﻿
-namespace MFTP
+namespace _MFTP_
 {
     partial class ExtraSettings
     {
@@ -39,8 +39,12 @@ namespace MFTP
             this.gb1 = new System.Windows.Forms.GroupBox();
             this.FXP_Proto_cb0 = new System.Windows.Forms.CheckBox();
             this.l1 = new System.Windows.Forms.Label();
+            this.gb_other = new System.Windows.Forms.GroupBox();
+            this.language_label = new System.Windows.Forms.Label();
+            this.language_ComboBox = new System.Windows.Forms.ComboBox();
             this.gb0.SuspendLayout();
             this.gb1.SuspendLayout();
+            this.gb_other.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveSettings
@@ -134,7 +138,7 @@ namespace MFTP
             this.gb1.Controls.Add(this.FXP_Proto_cb0);
             this.gb1.Controls.Add(this.l1);
             this.gb1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.gb1.Location = new System.Drawing.Point(3, 142);
+            this.gb1.Location = new System.Drawing.Point(3, 165);
             this.gb1.Name = "gb1";
             this.gb1.Size = new System.Drawing.Size(329, 58);
             this.gb1.TabIndex = 7;
@@ -151,7 +155,6 @@ namespace MFTP
             this.FXP_Proto_cb0.TabIndex = 2;
             this.FXP_Proto_cb0.Text = "FXP protocol";
             this.FXP_Proto_cb0.UseVisualStyleBackColor = true;
-            this.FXP_Proto_cb0.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // l1
             // 
@@ -166,11 +169,52 @@ namespace MFTP
             this.l1.Text = "Beta Functions:";
             this.l1.Click += new System.EventHandler(this.L1_Click);
             // 
+            // gb_other
+            // 
+            this.gb_other.Controls.Add(this.language_label);
+            this.gb_other.Controls.Add(this.language_ComboBox);
+            this.gb_other.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.gb_other.Location = new System.Drawing.Point(3, 64);
+            this.gb_other.Name = "gb_other";
+            this.gb_other.Size = new System.Drawing.Size(329, 95);
+            this.gb_other.TabIndex = 8;
+            this.gb_other.TabStop = false;
+            this.gb_other.Text = "Other";
+            // 
+            // language_label
+            // 
+            this.language_label.AutoSize = true;
+            this.language_label.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.language_label.Location = new System.Drawing.Point(9, 22);
+            this.language_label.MaximumSize = new System.Drawing.Size(100, 15);
+            this.language_label.MinimumSize = new System.Drawing.Size(60, 15);
+            this.language_label.Name = "language_label";
+            this.language_label.Size = new System.Drawing.Size(62, 15);
+            this.language_label.TabIndex = 3;
+            this.language_label.Text = "Language:";
+            this.language_label.Click += new System.EventHandler(this.Language_label_Click);
+            // 
+            // language_ComboBox
+            // 
+            this.language_ComboBox.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.language_ComboBox.FormattingEnabled = true;
+            this.language_ComboBox.Items.AddRange(new object[] {
+            "Auto",
+            "English",
+            "Русский"});
+            this.language_ComboBox.Location = new System.Drawing.Point(77, 20);
+            this.language_ComboBox.Name = "language_ComboBox";
+            this.language_ComboBox.Size = new System.Drawing.Size(95, 21);
+            this.language_ComboBox.TabIndex = 0;
+            this.language_ComboBox.Text = "Auto";
+            this.language_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Language_ComboBox_SelectedIndexChanged);
+            // 
             // ExtraSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 264);
+            this.Controls.Add(this.gb_other);
             this.Controls.Add(this.gb1);
             this.Controls.Add(this.gb0);
             this.Controls.Add(this.SaveSettings);
@@ -188,6 +232,8 @@ namespace MFTP
             this.gb0.PerformLayout();
             this.gb1.ResumeLayout(false);
             this.gb1.PerformLayout();
+            this.gb_other.ResumeLayout(false);
+            this.gb_other.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -203,5 +249,8 @@ namespace MFTP
         private System.Windows.Forms.GroupBox gb1;
         private System.Windows.Forms.CheckBox FXP_Proto_cb0;
         private System.Windows.Forms.Label l1;
+        private System.Windows.Forms.GroupBox gb_other;
+        private System.Windows.Forms.Label language_label;
+        private System.Windows.Forms.ComboBox language_ComboBox;
     }
 }

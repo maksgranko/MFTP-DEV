@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>iconx256.ico</ApplicationIcon>
+    <RootNamespace>_MFTP_</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

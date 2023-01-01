@@ -1,5 +1,4 @@
 ﻿using FluentFTP;
-using MFTP;
 using System;
 using System.IO;
 using System.Resources;
@@ -9,7 +8,7 @@ namespace _MFTP_
 {
     public partial class MFTP : Form
     {
-#pragma warning disable IDE0044 // Добавить модификатор только для чтения
+#pragma warning disable IDE0044
         private ushort FTP_ConnectedState;
         private ushort FTP_FTPType;
         private ushort FTP_PortFromType;
@@ -239,7 +238,7 @@ namespace _MFTP_
             {
                 client.Encoding = System.Text.Encoding.Default;
             }
-            else if (Properties.Settings.Default.Encoding == 1)
+            else if (Properties.Settings.Default.Encoding == 1) 
             {
                 client.Encoding = System.Text.Encoding.ASCII;
             }
@@ -584,10 +583,11 @@ namespace _MFTP_
                         Deletecount[1]++;
                     }
 
-                    for (int i = 0; i < Deletecount[1]; i++)
+                    for (ushort i = 0; i < Deletecount[1]; i++)
                     {
                         if (DeleteItemName[1,i] != "..")
                         {
+                            Progressbar(Deletecount[1], i);
                             FtpObjectType? tmp = client.GetFilePermissions(DeleteTarget[1,i]).Type;
                             if (tmp == null)
                             {
@@ -632,6 +632,7 @@ namespace _MFTP_
 
         private void Refresh_FileList_1()
         {
+            FTP_ProgressBar.Value = 0;
             try {
                 if (FTP_ConnectedState == 1)
                 {
@@ -675,8 +676,8 @@ namespace _MFTP_
             CopyMoveMode[0] = false;
             CopyMoveMode[1] = false;
             Disconnect();
-            Form ext_settings = new ExtraSettings();
-            ext_settings.ShowDialog();
+            Form es = new ExtraSettings();
+            es.ShowDialog();
             if (ConnectedBefore == true)
             {
                 Connect();
@@ -922,10 +923,11 @@ namespace _MFTP_
                     SetEncoding(client);
                     try
                     {
-                        for (int i = 0; i < Copycount[1]; i++)
+                        for (ushort i = 0; i < Copycount[1]; i++)
                         {
                             if (MoveItemName[1,i] != "..")
                             {
+                                Progressbar(Copycount[1], i);
                                 FtpObjectType? tmp = null;
                                 if (client.GetFilePermissions(CopyMoveTarget[1,i]) != null)
                                 {
@@ -1027,10 +1029,12 @@ namespace _MFTP_
             }
             try
             {
-                for (int i = 0; i < Downloadcount; i++)
+                for (ushort i = 0; i < Downloadcount; i++)
                 {
-                    if (DownloadItemName[i] != "..") { 
-                    FtpObjectType? tmp = client.GetFilePermissions(DownloadTarget[i]).Type;
+                    if (DownloadItemName[i] != "..") {
+
+                        Progressbar(Downloadcount, i);
+                        FtpObjectType? tmp = client.GetFilePermissions(DownloadTarget[i]).Type;
                     if (tmp == null)
                     {
                         FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
@@ -1105,6 +1109,7 @@ namespace _MFTP_
         }
         private void Refresh_FileList_0()
         {
+            FTP_ProgressBar.Value = 0;
             if (WorkingDirectory_0 != "")
             {
                 Server_0_listBox.Items.Clear();
@@ -1368,6 +1373,11 @@ namespace _MFTP_
             Open_0();
         }
 
+        private void Progressbar(ushort maxvalue,ushort currentvalue)
+        {
+            FTP_ProgressBar.Value = (100*currentvalue)/maxvalue;
+            Application.DoEvents();
+        }
 
         private void Server_0_listBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -1433,10 +1443,11 @@ namespace _MFTP_
             }
             try
             {
-                for (int i = 0; i < Uploadcount; i++)
+                for (ushort i = 0; i < Uploadcount; i++)
                 {
                     if (UploadItemName[i] != "..")
                     {
+                        Progressbar(Uploadcount, i);
                         FileAttributes attr = File.GetAttributes(WorkingDirectory_0 + "/" + UploadItemName[i]);
                         if (attr.HasFlag(FileAttributes.Directory))
                         {
@@ -1528,10 +1539,11 @@ namespace _MFTP_
             try
             {
 
-                for (int i = 0; i < Deletecount[0]; i++)
+                for (ushort i = 0; i < Deletecount[0]; i++)
                 {
                     if (DeleteItemName[0, i] != "..")
                     {
+                        Progressbar(Deletecount[0], i);
                         FileAttributes attr = File.GetAttributes(DeleteTarget[0, i]);
                         if (attr.HasFlag(FileAttributes.Directory))
                         {
@@ -1612,10 +1624,11 @@ namespace _MFTP_
             
                 else
                 {
-                    for (int i = 0; i < Copycount[0]; i++)
+                    for (ushort i = 0; i < Copycount[0]; i++)
                     {
                         if (MoveItemName[0, i] != "..")
                         {
+                            Progressbar(Copycount[0], i);
                             FileAttributes attr = File.GetAttributes(CopyMoveTarget[0, i]);
                             if (attr.HasFlag(FileAttributes.Directory))
                             {

@@ -377,6 +377,15 @@
   <data name="Text_Settings_FXPProto" xml:space="preserve">
     <value>FXP Протокол</value>
   </data>
+  <data name="Text_Settings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Text_Settings_LanguageMessage" xml:space="preserve">
+    <value>Изменение языка происходит не мгновенно! Требуется перезагрузка.</value>
+  </data>
+  <data name="Text_Settings_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
   <data name="Text_Upload" xml:space="preserve">
     <value>Загрузить</value>
   </data>

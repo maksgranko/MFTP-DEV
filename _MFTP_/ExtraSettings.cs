@@ -1,10 +1,9 @@
-﻿using _MFTP_;
-using _MFTP_.Properties;
+﻿using _MFTP_.Properties;
 using System;
 using System.Resources;
 using System.Windows.Forms;
 
-namespace MFTP
+namespace _MFTP_
 {
     public partial class ExtraSettings : Form
     {
@@ -25,8 +24,12 @@ namespace MFTP
             Force_Auto_chbox.Text = rs.GetString("Text_Settings_AutoEncode");
             Force_UTF7_chbox.Text = rs.GetString("Text_Settings_ForceUTF7");
             Force_UTF8_chbox.Text = rs.GetString("Text_Settings_ForceUTF8");
+
+            gb_other.Text = rs.GetString("Text_Settings_Other");
+            language_label.Text = rs.GetString("Text_Settings_Language") + "∙:";
+
             gb1.Text = rs.GetString("Text_Settings_BetaFunctional");
-            l1.Text = rs.GetString("Text_Settings_BetaFunctional") + ":";
+            l1.Text = rs.GetString("Text_Settings_BetaFunctional") + "∙:";
             FXP_Proto_cb0.Text = rs.GetString("Text_Settings_FXPProto");
             SaveSettings.Text = rs.GetString("Text_Apply");
 
@@ -56,6 +59,18 @@ namespace MFTP
             {
                 Settings.Default.Encoding = 0;
                 Force_Auto_chbox.Checked = true;
+            }
+            if (Properties.Settings.Default.Autolocale == true)
+            {
+                language_ComboBox.Text = "Auto";
+            }
+            else if (Properties.Settings.Default.SelectedLocale == "ru_RU")
+            {
+                language_ComboBox.Text = "Русский";
+            }
+            else if (Properties.Settings.Default.SelectedLocale == "en_US")
+            {
+                language_ComboBox.Text = "English";
             }
         }
 
@@ -116,15 +131,36 @@ namespace MFTP
             Force_Auto_chbox.Checked = true;
         }
 
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void L1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(rs.GetString("Text_Settings_BetaMessage"));
         }
 
+        private void Language_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (language_ComboBox.Text == "Auto")
+            {
+                Properties.Settings.Default.Autolocale = true;
+            }
+            else
+            {
+                Properties.Settings.Default.Autolocale = false;
+            }
+            if (language_ComboBox.Text == "Русский")
+            {
+                Properties.Settings.Default.SelectedLocale = "ru_RU";
+            }
+            else if (language_ComboBox.Text == "English")
+            {
+                Properties.Settings.Default.SelectedLocale = "en_US";
+            }
+
+        }
+
+        private void Language_label_Click(object sender, EventArgs e)
+        {
+
+            MessageBox.Show(rs.GetString("Text_Settings_LanguageMessage"));
+        }
     }
 }

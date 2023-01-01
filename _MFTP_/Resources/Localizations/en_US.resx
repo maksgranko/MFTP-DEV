@@ -377,6 +377,15 @@ WHITE: New function, uncategorized(or developer is lazy)</value>
   <data name="Text_Settings_FXPProto" xml:space="preserve">
     <value>FXP Protocol</value>
   </data>
+  <data name="Text_Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Text_Settings_LanguageMessage" xml:space="preserve">
+    <value>Language changing isn't instantly! Restart needed.</value>
+  </data>
+  <data name="Text_Settings_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="Text_Upload" xml:space="preserve">
     <value>Upload</value>
   </data>

@@ -830,6 +830,33 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Language.
+        /// </summary>
+        public static string Text_Settings_Language {
+            get {
+                return ResourceManager.GetString("Text_Settings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Language changing isn&apos;t instantly! Restart needed..
+        /// </summary>
+        public static string Text_Settings_LanguageMessage {
+            get {
+                return ResourceManager.GetString("Text_Settings_LanguageMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Other.
+        /// </summary>
+        public static string Text_Settings_Other {
+            get {
+                return ResourceManager.GetString("Text_Settings_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Upload.
         /// </summary>
         public static string Text_Upload {

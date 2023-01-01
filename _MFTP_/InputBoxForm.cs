@@ -1,7 +1,4 @@
-﻿using _MFTP_.Resources.Localizations;
-using System;
-using System.Globalization;
-using System.IO;
+﻿using System;
 using System.Resources;
 using System.Windows.Forms;
 

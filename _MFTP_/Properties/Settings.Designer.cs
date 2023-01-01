@@ -106,5 +106,29 @@ namespace _MFTP_.Properties {
                 this["LastDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedLocale {
+            get {
+                return ((string)(this["SelectedLocale"]));
+            }
+            set {
+                this["SelectedLocale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Autolocale {
+            get {
+                return ((bool)(this["Autolocale"]));
+            }
+            set {
+                this["Autolocale"] = value;
+            }
+        }
     }
 }
