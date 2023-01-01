@@ -21,6 +21,7 @@ namespace _MFTP_
         private bool ConnectedBefore;
         private bool[] CopyMoveMode = new bool[2];
         private bool Disk_block;
+        private bool portLost = false;
 
         //private List<string> UploadTarget = new List<string>();
         //private List<string> DownloadTarget = new List<string>();
@@ -242,7 +243,7 @@ namespace _MFTP_
         public void Disconnect()
         {
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Optimized);
-            var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
+            FtpClient client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password,Properties.Settings.Default.FTP_CustomPort);
             client.Disconnect();
             if (client.IsConnected == true || FTP_ConnectedState == 1 || client.IsAuthenticated == true)
             {
@@ -254,22 +255,13 @@ namespace _MFTP_
         public void SetEncoding(FtpClient client)
         {
             if (Properties.Settings.Default.Encoding == 0)
-            {
                 client.Encoding = System.Text.Encoding.Default;
-            }
             else if (Properties.Settings.Default.Encoding == 1)
-            {
                 client.Encoding = System.Text.Encoding.ASCII;
-            }
             else if (Properties.Settings.Default.Encoding == 2)
-            {
                 client.Encoding = System.Text.Encoding.UTF7;
-            }
             else if (Properties.Settings.Default.Encoding == 3)
-            {
                 client.Encoding = System.Text.Encoding.UTF8;
-            }
-
             else
             {
                 FTP_Error.Text = rs.GetString("Info_Encode_Default");
@@ -286,7 +278,7 @@ namespace _MFTP_
                 goto FTP_SkipConnect;
             }
 
-            var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
+            FtpClient client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
             //Disconnect by User
             if (client.IsConnected == true || FTP_ConnectedState == 1 || client.IsAuthenticated == true)
             {
@@ -308,7 +300,7 @@ namespace _MFTP_
                 {
                     try
                     {
-                        client.AutoConnect();
+                        GetClient();
                     }
                     catch (System.AggregateException)
                     {
@@ -478,7 +470,7 @@ namespace _MFTP_
                 FTP_Error.Text = err.Message;
             }
             ConnectedBefore = true;
-            RecentClass.Add(FTP_IP_Box.Text, FTP_Username_Box.Text, FTP_Password_Box.Text,(GetClient().Port).ToString());
+            RecentClass.Add(FTP_IP_Box.Text, FTP_Username_Box.Text, FTP_Password_Box.Text, GetClient().Port.ToString());
         FTP_SkipConnect:
             FTP_ConnectStatusIsNeedUpdate = true;
             UpdateVar();
@@ -552,6 +544,7 @@ namespace _MFTP_
 
         private void FTP_CustomPort_Box_TextChanged(object sender, EventArgs e)
         {
+            if (portLost == false) { 
             try
             {
                 Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(FTP_CustomPort_Box.Text);
@@ -560,21 +553,28 @@ namespace _MFTP_
             catch (System.OverflowException)
             {
                 FTP_Error.Text = rs.GetString("Error_BadPort");
-                FTP_CustomPort_Box.Text = "";
             }
             catch (System.FormatException)
             {
-                FTP_CustomPort_Box.Text = "";
                 FTP_Error.Text = rs.GetString("Error_PortOutOfRange");
+                FTP_CustomPort_Box.Text = "";
             }
             catch (Exception err)
             {
                 FTP_Error.Text = err.Message;
-                FTP_CustomPort_Box.Text = "";
             }
             finally
             {
                 Properties.Settings.Default.Save();
+            }
+            }
+            else
+            {
+
+                FTP_Error.Text = rs.GetString("Error_PortLost");
+                Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(FTP_CustomPort_Box.Text);
+                Properties.Settings.Default.Save();
+                portLost = false;
             }
         }
 
@@ -587,11 +587,7 @@ namespace _MFTP_
         {
             if (FTP_ConnectedState == 1)
             {
-                var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
-                if (client.IsConnected == false)
-                {
-                    client.AutoConnect();
-                }
+                FtpClient client = GetClient();
                 SetEncoding(client);
 
                 try
@@ -643,7 +639,7 @@ namespace _MFTP_
         }
         private FtpClient GetClient()
         {
-            var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password, Properties.Settings.Default.FTP_CustomPort);
+            FtpClient client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password, Properties.Settings.Default.FTP_CustomPort);
             if (client.IsConnected == false)
             {
                 client.AutoConnect();
@@ -659,7 +655,7 @@ namespace _MFTP_
                 if (FTP_ConnectedState == 1)
                 {
                     Server_1_listBox.Items.Clear();
-                    var client = GetClient();
+                    FtpClient client = GetClient();
                     Server_1_listBox.Items.Insert(0, "..");
                     SetEncoding(client);
 
@@ -779,7 +775,7 @@ namespace _MFTP_
 
         private void Server_1_EnterButton_Click(object sender, EventArgs e)
         {
-            var client = GetClient();
+            FtpClient client = GetClient();
             SetEncoding(client);
             if (FTP_ConnectedState == 1)
             {
@@ -813,7 +809,7 @@ namespace _MFTP_
             {
                 if (Server_1_listBox.SelectedItem != null)
                 {
-                    var client = GetClient();
+                    FtpClient client = GetClient();
                     SetEncoding(client);
                     try
                     {
@@ -897,7 +893,7 @@ namespace _MFTP_
         {
             if (FTP_ConnectedState == 1)
             {
-                var client = GetClient();
+                FtpClient client = GetClient();
                 SetEncoding(client);
                 Form IBform = new InputBoxForm(0);
                 IBform.ShowDialog();
@@ -941,7 +937,7 @@ namespace _MFTP_
             {
                 if (FTP_ConnectedState == 1)
                 {
-                    var client = GetClient();
+                    FtpClient client = GetClient();
                     SetEncoding(client);
                     try
                     {
@@ -1011,7 +1007,7 @@ namespace _MFTP_
             }
             else
             {
-                var client = GetClient();
+                FtpClient client = GetClient();
                 SetEncoding(client);
                 string File;
                 File = Server_1_listBox.SelectedItem.ToString();
@@ -1039,7 +1035,7 @@ namespace _MFTP_
         }
         private void DownloadinConMenu_1_Click(object sender, EventArgs e)
         {
-            var client = GetClient();
+            FtpClient client = GetClient();
             SetEncoding(client);
 
             Downloadcount = 0;
@@ -1105,7 +1101,7 @@ namespace _MFTP_
         private void GotoRoot_1_Click(object sender, EventArgs e)
         {
             FTP_Error.Text = "";
-            var client = GetClient();
+            FtpClient client = GetClient();
             SetEncoding(client);
             client.SetWorkingDirectory("/");
             WorkingDirectory_1 = client.GetWorkingDirectory().ToString();
@@ -1454,7 +1450,7 @@ namespace _MFTP_
 
         private void UploadinConMenu_0_Click(object sender, EventArgs e)
         {
-            var client = GetClient();
+            FtpClient client = GetClient();
             SetEncoding(client);
 
             Uploadcount = 0;
@@ -1609,11 +1605,11 @@ namespace _MFTP_
         {
             if (!baseDir.Exists)
                 return;
-            foreach (var dir in baseDir.EnumerateDirectories())
+            foreach (DirectoryInfo dir in baseDir.EnumerateDirectories())
             {
                 RecursiveDelete(dir, false);
             }
-            foreach (var file in baseDir.GetFiles())
+            foreach (FileInfo file in baseDir.GetFiles())
             {
                 file.IsReadOnly = false;
                 file.Delete();
@@ -1752,6 +1748,7 @@ namespace _MFTP_
                 Properties.Recent.Default.Recent_IP.Clear();
                 Properties.Recent.Default.Recent_Login.Clear();
                 Properties.Recent.Default.Recent_Pass.Clear();
+                Properties.Recent.Default.Recent_Port.Clear();
                 Properties.Recent.Default.Save();
             }
             else
@@ -1760,8 +1757,21 @@ namespace _MFTP_
                 FTP_IP_Box.Text = e.ClickedItem.Text;
                 FTP_Username_Box.Text = result[0];
                 FTP_Password_Box.Text = result[1];
-                Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(result[2]);
-                 FTP_FTPType = 4;
+                try
+                {
+                    FTP_CustomPort_Box.Text = result[2];
+                    if(FTP_CustomPort_Box.Text == "")
+                    {
+                        portLost = true;
+                        FTP_CustomPort_Box.Text = "21";
+                    }
+                }
+                catch (System.FormatException)
+                {
+                    portLost = true;
+                    FTP_CustomPort_Box.Text = "21";
+                }
+                FTP_FTPType = 4;
                 FTP_CustomPortIsNeedUpdate = true;
                 Properties.Settings.Default.Save();
                 UpdateVar();

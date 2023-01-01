@@ -171,6 +171,9 @@
   <data name="Error_MovingError" xml:space="preserve">
     <value>Moving error.</value>
   </data>
+  <data name="Error_PortLost" xml:space="preserve">
+    <value>Port of recent server has been lost! Setting default port.</value>
+  </data>
   <data name="Error_PortOutOfRange" xml:space="preserve">
     <value>Write correct port from 0 to 65535!</value>
   </data>

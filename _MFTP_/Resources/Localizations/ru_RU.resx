@@ -171,6 +171,9 @@
   <data name="Error_MovingError" xml:space="preserve">
     <value>Ошибка перемещения файла.</value>
   </data>
+  <data name="Error_PortLost" xml:space="preserve">
+    <value>Порт недавнего сервера был потерян! Установлен стандартный порт.</value>
+  </data>
   <data name="Error_PortOutOfRange" xml:space="preserve">
     <value>Порт вышел за пределы! Допустимое значение от 0 до 65535.</value>
   </data>

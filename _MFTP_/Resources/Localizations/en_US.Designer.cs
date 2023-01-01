@@ -232,6 +232,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Port of recent server has been lost! Setting default port..
+        /// </summary>
+        public static string Error_PortLost {
+            get {
+                return ResourceManager.GetString("Error_PortLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Write correct port from 0 to 65535!.
         /// </summary>
         public static string Error_PortOutOfRange {
