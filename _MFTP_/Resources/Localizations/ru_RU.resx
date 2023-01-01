@@ -174,6 +174,9 @@
   <data name="Error_PortOutOfRange" xml:space="preserve">
     <value>Порт вышел за пределы! Допустимое значение от 0 до 65535.</value>
   </data>
+  <data name="Error_RecentNotFound" xml:space="preserve">
+    <value>Авторизируйтесь хотябы на один FTP-сервер, чтобы появились недавние сервера.</value>
+  </data>
   <data name="Error_RefreshingUnavailable" xml:space="preserve">
     <value>Невозможно обновить списки.</value>
   </data>
@@ -276,6 +279,9 @@
   <data name="Text_Auto" xml:space="preserve">
     <value>Авто</value>
   </data>
+  <data name="Text_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
   <data name="Text_CreateFile" xml:space="preserve">
     <value>Создать файл</value>
     <comment>dont use</comment>
@@ -339,6 +345,9 @@
   </data>
   <data name="Text_Properties_Size" xml:space="preserve">
     <value>Размер:</value>
+  </data>
+  <data name="Text_Recent" xml:space="preserve">
+    <value>Недавние</value>
   </data>
   <data name="Text_Refresh" xml:space="preserve">
     <value>Обновить</value>

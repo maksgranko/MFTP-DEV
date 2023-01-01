@@ -241,6 +241,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Авторизируйтесь хотябы на один FTP-сервер, чтобы появились недавние сервера..
+        /// </summary>
+        public static string Error_RecentNotFound {
+            get {
+                return ResourceManager.GetString("Error_RecentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Невозможно обновить списки..
         /// </summary>
         public static string Error_RefreshingUnavailable {
@@ -538,6 +547,15 @@ namespace _MFTP_.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Очистить.
+        /// </summary>
+        public static string Text_Clear {
+            get {
+                return ResourceManager.GetString("Text_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Создать файл.
         /// </summary>
         public static string Text_CreateFile {
@@ -723,6 +741,15 @@ namespace _MFTP_.Resources.Localizations {
         public static string Text_Properties_Size {
             get {
                 return ResourceManager.GetString("Text_Properties_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Недавние.
+        /// </summary>
+        public static string Text_Recent {
+            get {
+                return ResourceManager.GetString("Text_Recent", resourceCulture);
             }
         }
         

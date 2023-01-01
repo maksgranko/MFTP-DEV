@@ -22,14 +22,14 @@ namespace _MFTP_.Resources.Localizations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class en_US {
+    public class INHERITED_en_US {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal en_US() {
+        internal INHERITED_en_US() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace _MFTP_.Resources.Localizations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("_MFTP_.Resources.Localizations.en_US", typeof(en_US).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("_MFTP_.Resources.Localizations.INHERITED_en_US", typeof(INHERITED_en_US).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

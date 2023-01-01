@@ -21,17 +21,25 @@ namespace _MFTP_
         private bool ConnectedBefore;
         private bool[] CopyMoveMode = new bool[2];
         private bool Disk_block;
+
+        //private List<string> UploadTarget = new List<string>();
+        //private List<string> DownloadTarget = new List<string>();
+        //private List<string> UploadItemName = new List<string>();
+        //private List<string> DownloadItemName = new List<string>();
+        //private List<string>[] CopyMoveTarget = new List<string>[2];
+
         private string[] UploadTarget = new string[255];
         private string[] DownloadTarget = new string[255];
         private string[] UploadItemName = new string[255];
         private string[] DownloadItemName = new string[255];
-        private string[,] CopyMoveTarget = new string[255,255];
-        private string[,] MoveItemName = new string[255,255];
-        private string[,] DeleteTarget = new string[255,255];
-        private string[,] DeleteItemName = new string[255,255];
+        private string[,] CopyMoveTarget = new string[255, 255];
+        private string[,] MoveItemName = new string[255, 255];
+        private string[,] DeleteTarget = new string[255, 255];
+        private string[,] DeleteItemName = new string[255, 255];
         private string WorkingDirectory_0 = "";
         private string WorkingDirectory_1 = "/";
         private ResourceSet rs;
+        private ToolStripSeparator RecentSeparator = new ToolStripSeparator();
 #pragma warning restore IDE0044
 
         public MFTP()
@@ -40,13 +48,24 @@ namespace _MFTP_
             Localizations();
             InitializeConfiguration();
             UpdateVar();
-            FTP_Error.Text = "";
+            ErrorChecker();
             InitializeServer_0_ListBox();
+            RecentClass.InitConfig();
+        }
+        private void ErrorChecker()
+        {
+            FTP_Error.Text = "";
+            Localizations locale = new Localizations();
+            if (locale.SafeMode() == true)
+            {
+                FTP_Error.Text += rs.GetObject("Error_Damaged");
+            }
         }
         private void Localizations()
         {
             Localizations locale = new Localizations();
             rs = locale.Setlocale();
+            FTP_Recent.Text = rs.GetString("Text_Recent");
             FTP_Username_text.Text = rs.GetString("Text_Username");
             FTP_Password_Text.Text = rs.GetString("Text_Password");
             AdvancedSettings_btn.Text = rs.GetString("Text_Settings");
@@ -238,7 +257,7 @@ namespace _MFTP_
             {
                 client.Encoding = System.Text.Encoding.Default;
             }
-            else if (Properties.Settings.Default.Encoding == 1) 
+            else if (Properties.Settings.Default.Encoding == 1)
             {
                 client.Encoding = System.Text.Encoding.ASCII;
             }
@@ -260,7 +279,8 @@ namespace _MFTP_
         }
         public void Connect()
         {
-            if (FTP_IP_Box.Text.Length < 7 || FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1") {
+            if (FTP_IP_Box.Text.Length < 7 || FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1")
+            {
                 FTP_Error.Text = rs.GetString("Error_Incorrect_IP");
                 FTP_ConnectedState = 4;
                 goto FTP_SkipConnect;
@@ -458,6 +478,7 @@ namespace _MFTP_
                 FTP_Error.Text = err.Message;
             }
             ConnectedBefore = true;
+            RecentClass.Add(FTP_IP_Box.Text, FTP_Username_Box.Text, FTP_Password_Box.Text,(GetClient().Port).ToString());
         FTP_SkipConnect:
             FTP_ConnectStatusIsNeedUpdate = true;
             UpdateVar();
@@ -578,17 +599,17 @@ namespace _MFTP_
                     Deletecount[1] = 0;
                     foreach (int index in Server_1_listBox.SelectedIndices)
                     {
-                        DeleteItemName[1,Deletecount[1]] = Server_1_listBox.Items[index].ToString();
-                        DeleteTarget[1,Deletecount[1]] = WorkingDirectory_1 + "/" + DeleteItemName[1,Deletecount[1]];
+                        DeleteItemName[1, Deletecount[1]] = Server_1_listBox.Items[index].ToString();
+                        DeleteTarget[1, Deletecount[1]] = WorkingDirectory_1 + "/" + DeleteItemName[1, Deletecount[1]];
                         Deletecount[1]++;
                     }
 
                     for (ushort i = 0; i < Deletecount[1]; i++)
                     {
-                        if (DeleteItemName[1,i] != "..")
+                        if (DeleteItemName[1, i] != "..")
                         {
                             Progressbar(Deletecount[1], i);
-                            FtpObjectType? tmp = client.GetFilePermissions(DeleteTarget[1,i]).Type;
+                            FtpObjectType? tmp = client.GetFilePermissions(DeleteTarget[1, i]).Type;
                             if (tmp == null)
                             {
                                 FTP_Error.Text = "This file or directory can't be deleted.";
@@ -596,11 +617,11 @@ namespace _MFTP_
                             string ItemType = tmp.ToString();
                             if (ItemType == "Directory")
                             {
-                                client.DeleteDirectory(DeleteTarget[1,i]);
+                                client.DeleteDirectory(DeleteTarget[1, i]);
                             }
                             else if (ItemType == "File")
                             {
-                                client.DeleteFile(DeleteTarget[1,i]);
+                                client.DeleteFile(DeleteTarget[1, i]);
                             }
                         }
                         else
@@ -622,7 +643,7 @@ namespace _MFTP_
         }
         private FtpClient GetClient()
         {
-            var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
+            var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password, Properties.Settings.Default.FTP_CustomPort);
             if (client.IsConnected == false)
             {
                 client.AutoConnect();
@@ -633,7 +654,8 @@ namespace _MFTP_
         private void Refresh_FileList_1()
         {
             FTP_ProgressBar.Value = 0;
-            try {
+            try
+            {
                 if (FTP_ConnectedState == 1)
                 {
                     Server_1_listBox.Items.Clear();
@@ -906,14 +928,14 @@ namespace _MFTP_
         {
             if (CopyMoveMode[1] == false)
             {
-                    Copycount[1] = 0;
-                    foreach (int index in Server_1_listBox.SelectedIndices)
-                    {
-                        MoveItemName[1,Copycount[1]] = Server_1_listBox.Items[index].ToString();
-                        CopyMoveTarget[1,Copycount[1]] = WorkingDirectory_1 + "/" + MoveItemName[1,Copycount[1]];
-                        CopyMoveMode[1] = true;
-                        Copycount[1]++;
-                    }
+                Copycount[1] = 0;
+                foreach (int index in Server_1_listBox.SelectedIndices)
+                {
+                    MoveItemName[1, Copycount[1]] = Server_1_listBox.Items[index].ToString();
+                    CopyMoveTarget[1, Copycount[1]] = WorkingDirectory_1 + "/" + MoveItemName[1, Copycount[1]];
+                    CopyMoveMode[1] = true;
+                    Copycount[1]++;
+                }
             }
             else
             {
@@ -925,13 +947,13 @@ namespace _MFTP_
                     {
                         for (ushort i = 0; i < Copycount[1]; i++)
                         {
-                            if (MoveItemName[1,i] != "..")
+                            if (MoveItemName[1, i] != "..")
                             {
                                 Progressbar(Copycount[1], i);
                                 FtpObjectType? tmp = null;
-                                if (client.GetFilePermissions(CopyMoveTarget[1,i]) != null)
+                                if (client.GetFilePermissions(CopyMoveTarget[1, i]) != null)
                                 {
-                                    tmp = client.GetFilePermissions(CopyMoveTarget[1,i]).Type;
+                                    tmp = client.GetFilePermissions(CopyMoveTarget[1, i]).Type;
                                 }
 
                                 if (tmp == null)
@@ -941,11 +963,11 @@ namespace _MFTP_
                                 string ItemType = tmp.ToString();
                                 if (ItemType == "Directory")
                                 {
-                                    client.MoveDirectory(CopyMoveTarget[1,i], WorkingDirectory_1 + "/" + MoveItemName[1,i], FtpRemoteExists.Skip);
+                                    client.MoveDirectory(CopyMoveTarget[1, i], WorkingDirectory_1 + "/" + MoveItemName[1, i], FtpRemoteExists.Skip);
                                 }
                                 else if (ItemType == "File")
                                 {
-                                    client.MoveFile(CopyMoveTarget[1,i], WorkingDirectory_1 + "/" + MoveItemName[1,i], FtpRemoteExists.Skip);
+                                    client.MoveFile(CopyMoveTarget[1, i], WorkingDirectory_1 + "/" + MoveItemName[1, i], FtpRemoteExists.Skip);
                                 }
                             }
                             else
@@ -1031,24 +1053,25 @@ namespace _MFTP_
             {
                 for (ushort i = 0; i < Downloadcount; i++)
                 {
-                    if (DownloadItemName[i] != "..") {
+                    if (DownloadItemName[i] != "..")
+                    {
 
                         Progressbar(Downloadcount, i);
                         FtpObjectType? tmp = client.GetFilePermissions(DownloadTarget[i]).Type;
-                    if (tmp == null)
-                    {
-                        FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
+                        if (tmp == null)
+                        {
+                            FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
+                        }
+                        string ItemType = tmp.ToString();
+                        if (ItemType == "Directory")
+                        {
+                            client.DownloadDirectory(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpFolderSyncMode.Update, FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
+                        }
+                        else if (ItemType == "File")
+                        {
+                            client.DownloadFile(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
+                        }
                     }
-                    string ItemType = tmp.ToString();
-                    if (ItemType == "Directory")
-                    {
-                        client.DownloadDirectory(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpFolderSyncMode.Update, FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
-                    }
-                    else if (ItemType == "File")
-                    {
-                        client.DownloadFile(WorkingDirectory_0 + "/" + DownloadItemName[i], DownloadTarget[i], FtpLocalExists.Skip, FtpVerify.OnlyChecksum);
-                    }
-                }
                     else
                     {
                         FTP_Error.Text = rs.GetString("Error_IsntDownloaded");
@@ -1155,7 +1178,7 @@ namespace _MFTP_
             catch (System.ArgumentException)
             {
                 Disk_list();
-                FTP_Error.Text = rs.GetString("Error_EmptyAddress");
+                FTP_Error.Text += rs.GetString("Error_EmptyAddress");
 
             }
             catch (System.IO.IOException)
@@ -1166,7 +1189,7 @@ namespace _MFTP_
             }
             catch (Exception err)
             {
-                FTP_Error.Text = err.Message;
+                FTP_Error.Text += err.Message;
             }
         }
 
@@ -1373,9 +1396,9 @@ namespace _MFTP_
             Open_0();
         }
 
-        private void Progressbar(ushort maxvalue,ushort currentvalue)
+        private void Progressbar(ushort maxvalue, ushort currentvalue)
         {
-            FTP_ProgressBar.Value = (100*currentvalue)/maxvalue;
+            FTP_ProgressBar.Value = (100 * currentvalue) / maxvalue;
             Application.DoEvents();
         }
 
@@ -1487,12 +1510,12 @@ namespace _MFTP_
             Refresh_FileList_0();
             Refresh_FileList_1();
         }
-    
+
 
         private void CreateFolderinConMenu_0_Click(object sender, EventArgs e)
         {
             Form IBform = new InputBoxForm(0);
-            IBform.ShowDialog(); 
+            IBform.ShowDialog();
             if (InputBoxForm.CorrectlyClosed == true)
             {
                 string Out = InputBoxForm.Output();
@@ -1532,7 +1555,7 @@ namespace _MFTP_
             Deletecount[0] = 0;
             foreach (int index in Server_0_listBox.SelectedIndices)
             {
-                DeleteItemName[0,Deletecount[0]] = Server_0_listBox.Items[index].ToString();
+                DeleteItemName[0, Deletecount[0]] = Server_0_listBox.Items[index].ToString();
                 DeleteTarget[0, Deletecount[0]] = WorkingDirectory_0 + "/" + DeleteItemName[0, Deletecount[0]];
                 Deletecount[0]++;
             }
@@ -1578,7 +1601,7 @@ namespace _MFTP_
             }
             Refresh_FileList_0();
         }
-    
+
 
         ////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////
@@ -1621,7 +1644,7 @@ namespace _MFTP_
                         Copycount[0]++;
                     }
                 }
-            
+
                 else
                 {
                     for (ushort i = 0; i < Copycount[0]; i++)
@@ -1695,6 +1718,53 @@ namespace _MFTP_
                         FTP_Error.Text = err.Message;
                     }
                 }
+            }
+        }
+        private void FTP_Recent_Click(object sender, EventArgs e)
+        {
+            FTP_Recent.HideDropDown();
+            FTP_Recent.DropDownItems.Clear();
+            string[] result = RecentClass.GetAll();
+            foreach (string str in result)
+            {
+                if (str != "empty")
+                {
+                    FTP_Recent.DropDownItems.Add(str);
+                }
+                else
+                {
+                    FTP_Recent.DropDownItems.Add(rs.GetString("null"));
+                }
+            }
+            FTP_Recent.DropDownItems.Add(RecentSeparator);
+            FTP_Recent.DropDownItems.Add(rs.GetString("Text_Clear"));
+            FTP_Recent.ShowDropDown();
+        }
+
+        private void FTP_Recent_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == rs.GetString("null"))
+            {
+                FTP_Error.Text = rs.GetString("Error_RecentNotFound");
+            }
+            else if (e.ClickedItem.Text == rs.GetString("Text_Clear"))
+            {
+                Properties.Recent.Default.Recent_IP.Clear();
+                Properties.Recent.Default.Recent_Login.Clear();
+                Properties.Recent.Default.Recent_Pass.Clear();
+                Properties.Recent.Default.Save();
+            }
+            else
+            {
+                string[] result = RecentClass.Get(e.ClickedItem.Text);
+                FTP_IP_Box.Text = e.ClickedItem.Text;
+                FTP_Username_Box.Text = result[0];
+                FTP_Password_Box.Text = result[1];
+                Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(result[2]);
+                 FTP_FTPType = 4;
+                FTP_CustomPortIsNeedUpdate = true;
+                Properties.Settings.Default.Save();
+                UpdateVar();
             }
         }
     }

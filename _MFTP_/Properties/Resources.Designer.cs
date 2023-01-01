@@ -103,6 +103,16 @@ namespace _MFTP_.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Recent {
+            get {
+                object obj = ResourceManager.GetObject("Recent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refreshx16 {
             get {
                 object obj = ResourceManager.GetObject("refreshx16", resourceCulture);

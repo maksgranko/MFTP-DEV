@@ -63,6 +63,7 @@
             this.FTP_ConnectStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.FTP_ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.FTP_Error = new System.Windows.Forms.ToolStripStatusLabel();
+            this.FTP_Recent = new System.Windows.Forms.ToolStripDropDownButton();
             this.Server_1_EnterButton = new System.Windows.Forms.Button();
             this.Server_0_EnterButton = new System.Windows.Forms.Button();
             this.RightClickMenu_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -349,7 +350,8 @@
             this.Statusbar_down.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FTP_ConnectStatus,
             this.FTP_ProgressBar,
-            this.FTP_Error});
+            this.FTP_Error,
+            this.FTP_Recent});
             this.Statusbar_down.Location = new System.Drawing.Point(0, 527);
             this.Statusbar_down.Name = "Statusbar_down";
             this.Statusbar_down.Size = new System.Drawing.Size(1022, 22);
@@ -374,9 +376,22 @@
             this.FTP_Error.BackColor = System.Drawing.SystemColors.Control;
             this.FTP_Error.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.FTP_Error.Name = "FTP_Error";
-            this.FTP_Error.Size = new System.Drawing.Size(883, 17);
+            this.FTP_Error.Size = new System.Drawing.Size(789, 17);
             this.FTP_Error.Spring = true;
             this.FTP_Error.Text = "Errors not found!";
+            // 
+            // FTP_Recent
+            // 
+            this.FTP_Recent.Image = global::_MFTP_.Properties.Resources.Recent;
+            this.FTP_Recent.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.FTP_Recent.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FTP_Recent.Name = "FTP_Recent";
+            this.FTP_Recent.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.FTP_Recent.ShowDropDownArrow = false;
+            this.FTP_Recent.Size = new System.Drawing.Size(63, 20);
+            this.FTP_Recent.Text = "Recent";
+            this.FTP_Recent.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FTP_Recent_DropDownItemClicked);
+            this.FTP_Recent.Click += new System.EventHandler(this.FTP_Recent_Click);
             // 
             // Server_1_EnterButton
             // 
@@ -620,7 +635,6 @@
         private System.Windows.Forms.ToolStripLabel FTP_Password_Text;
         private System.Windows.Forms.ToolStripTextBox FTP_Password_Box;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton FTP_Connect_btn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem fTPToolStripMenuItem;
@@ -658,6 +672,8 @@
         private System.Windows.Forms.Button GotoDisks_0;
         private System.Windows.Forms.Button GotoRoot_1;
         private System.Windows.Forms.ToolStripMenuItem RenameinConMenu_0;
+        private System.Windows.Forms.ToolStripButton FTP_Connect_btn;
+        private System.Windows.Forms.ToolStripDropDownButton FTP_Recent;
     }
 }
 
