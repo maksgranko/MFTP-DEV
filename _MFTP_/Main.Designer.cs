@@ -46,7 +46,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.FTP_Connect_btn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.FTP_TypeDropBtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.fTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sFTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -152,7 +152,7 @@
             this.toolStripSeparator3,
             this.FTP_Connect_btn,
             this.toolStripSeparator4,
-            this.toolStripDropDownButton1,
+            this.FTP_TypeDropBtn,
             this.toolStripSeparator5,
             this.AdvancedSettings_btn,
             this.toolStripSeparator6,
@@ -242,60 +242,60 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripDropDownButton1
+            // FTP_TypeDropBtn
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FTP_TypeDropBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.FTP_TypeDropBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fTPToolStripMenuItem,
             this.sFTPToolStripMenuItem,
             this.sSLToolStripMenuItem,
             this.tLSToolStripMenuItem,
             this.customPortToolStripMenuItem,
             this.autoToolStripMenuItem});
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(66, 22);
-            this.toolStripDropDownButton1.Text = "FTP Type";
+            this.FTP_TypeDropBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FTP_TypeDropBtn.Name = "FTP_TypeDropBtn";
+            this.FTP_TypeDropBtn.Size = new System.Drawing.Size(66, 22);
+            this.FTP_TypeDropBtn.Text = "FTP Type";
             // 
             // fTPToolStripMenuItem
             // 
             this.fTPToolStripMenuItem.Name = "fTPToolStripMenuItem";
-            this.fTPToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.fTPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fTPToolStripMenuItem.Text = "FTP";
             this.fTPToolStripMenuItem.Click += new System.EventHandler(this.FTPToolStripMenuItem_Click);
             // 
             // sFTPToolStripMenuItem
             // 
             this.sFTPToolStripMenuItem.Name = "sFTPToolStripMenuItem";
-            this.sFTPToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.sFTPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sFTPToolStripMenuItem.Text = "SFTP";
             this.sFTPToolStripMenuItem.Click += new System.EventHandler(this.SFTPToolStripMenuItem_Click);
             // 
             // sSLToolStripMenuItem
             // 
             this.sSLToolStripMenuItem.Name = "sSLToolStripMenuItem";
-            this.sSLToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.sSLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sSLToolStripMenuItem.Text = "SSL";
             this.sSLToolStripMenuItem.Click += new System.EventHandler(this.SSLToolStripMenuItem_Click);
             // 
             // tLSToolStripMenuItem
             // 
             this.tLSToolStripMenuItem.Name = "tLSToolStripMenuItem";
-            this.tLSToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.tLSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tLSToolStripMenuItem.Text = "TLS";
             this.tLSToolStripMenuItem.Click += new System.EventHandler(this.TLSToolStripMenuItem_Click);
             // 
             // customPortToolStripMenuItem
             // 
             this.customPortToolStripMenuItem.Name = "customPortToolStripMenuItem";
-            this.customPortToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.customPortToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.customPortToolStripMenuItem.Text = "Custom Port";
             this.customPortToolStripMenuItem.Click += new System.EventHandler(this.CustomPortToolStripMenuItem_Click);
             // 
             // autoToolStripMenuItem
             // 
             this.autoToolStripMenuItem.Name = "autoToolStripMenuItem";
-            this.autoToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.autoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autoToolStripMenuItem.Text = "Auto";
             this.autoToolStripMenuItem.Click += new System.EventHandler(this.AutoToolStripMenuItem_Click);
             // 
@@ -376,7 +376,7 @@
             this.FTP_Error.BackColor = System.Drawing.SystemColors.Control;
             this.FTP_Error.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.FTP_Error.Name = "FTP_Error";
-            this.FTP_Error.Size = new System.Drawing.Size(789, 17);
+            this.FTP_Error.Size = new System.Drawing.Size(820, 17);
             this.FTP_Error.Spring = true;
             this.FTP_Error.Text = "Errors not found!";
             // 
@@ -636,7 +636,7 @@
         private System.Windows.Forms.ToolStripTextBox FTP_Password_Box;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripDropDownButton FTP_TypeDropBtn;
         private System.Windows.Forms.ToolStripMenuItem fTPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sFTPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sSLToolStripMenuItem;

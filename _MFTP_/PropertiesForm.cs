@@ -27,11 +27,10 @@ namespace _MFTP_
             Advanced_label.Text = rs.GetString("Text_Properties_Advanced");
             Advanced.Text = rs.GetString("null");
         }
-        public PropertiesForm(string InfFile, bool NetConnected)
+        public PropertiesForm(string InfFile, bool NetConnected, uint type)
         {
             InitializeComponent();
             Localizations();
-
             string File = InfFile;
             if (File == null)
             {
@@ -41,13 +40,28 @@ namespace _MFTP_
 
             if (NetConnected == true)
             {
-                var client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password);
-                client.AutoConnect();
-
+                FtpClient client = new FtpClient(Properties.Settings.Default.FTP_IP, Properties.Settings.Default.FTP_Username, Properties.Settings.Default.FTP_Password, Properties.Settings.Default.FTP_CustomPort);
+                if (Properties.Settings.Default.Encoding == 0)
+                    client.Encoding = System.Text.Encoding.Default;
+                else if (Properties.Settings.Default.Encoding == 1)
+                    client.Encoding = System.Text.Encoding.ASCII;
+                else if (Properties.Settings.Default.Encoding == 2)
+                    client.Encoding = System.Text.Encoding.UTF7;
+                else if (Properties.Settings.Default.Encoding == 3)
+                    client.Encoding = System.Text.Encoding.UTF8;
+                if (type == 5) // auto
+                {
+                    client.AutoConnect();
+                }
+                else // custom and other
+                {
+                    client.Port = Properties.Settings.Default.FTP_CustomPort;
+                    client.Connect();
+                }
                 Filename.Text = File;
                 long tmp = client.GetFileSize(File);
                 FtpListItem tmp1 = client.GetFilePermissions(File);
-                if(tmp1 == null)
+                if (tmp1 == null)
                 {
                     Filename.Text = rs.GetString("Text_Properties_FilenameInvalid");
                     goto end;
@@ -78,7 +92,8 @@ namespace _MFTP_
             {
                 FileInfo Inf = new FileInfo(File);
                 Filename.Text = Inf.Name;
-                if(Inf.Name == "..") { 
+                if (Inf.Name == "..")
+                {
                     Filename.Text = rs.GetString("Text_Properties_FilenameInvalid"); ;
                     goto end;
                 }
