@@ -292,7 +292,7 @@ namespace _MFTP_
                 client.Encoding = System.Text.Encoding.Default;
             }
         }
-        
+
         private void Connect()
         {
             if (FTP_IP_Box.Text.Length < 7 || FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1")
@@ -383,41 +383,10 @@ namespace _MFTP_
                 else if (FTP_ConnectedState == 2)
                 {
                     FTP_ConnectedState = 0;
+                    FTP_Error.Text = rs.GetString("Error_UnexceptedError") + " " + rs.GetString("Info_Disconnected");
                 }
             }
-            try
-            {
-                if (client.IsConnected == true)
-                {
-                    Server_1_listBox.Items.Insert(0, "..");
-                    foreach (FtpListItem item in client.GetListing(WorkingDirectory_1))
-                    {
-                        if (item.Type == FtpObjectType.Directory)
-                        {
-                            Server_1_listBox.Items.Add(item.Name.ToString());
-                        }
-                    }
-                    foreach (FtpListItem item in client.GetListing(WorkingDirectory_1))
-                    {
-                        if (item.Type == FtpObjectType.File)
-                        {
-                            Server_1_listBox.Items.Add(item.Name.ToString());
-                        }
-                    }
-                }
-            }
-            catch (System.IO.IOException)
-            {
-                client.Disconnect();
-                FTP_ConnectedState = 0;
-                FTP_Error.Text = rs.GetString("Error_Timeout");
-            }
-            catch (Exception err)
-            {
-                client.Disconnect();
-                FTP_ConnectedState = 0;
-                FTP_Error.Text = err.Message;
-            }
+            Refresh_FileList_1();
             ConnectedBefore = true;
             RecentClass.Add(FTP_IP_Box.Text, FTP_Username_Box.Text, FTP_Password_Box.Text, client.Port.ToString());
         FTP_SkipConnect:
@@ -493,29 +462,30 @@ namespace _MFTP_
 
         private void FTP_CustomPort_Box_TextChanged(object sender, EventArgs e)
         {
-            if (portLost == false) { 
-            try
+            if (portLost == false)
             {
-                Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(FTP_CustomPort_Box.Text);
-                FTP_Error.Text = rs.GetString("Info_PortSaved");
-            }
-            catch (System.OverflowException)
-            {
-                FTP_Error.Text = rs.GetString("Error_BadPort");
-            }
-            catch (System.FormatException)
-            {
-                FTP_Error.Text = rs.GetString("Error_PortOutOfRange");
-                FTP_CustomPort_Box.Text = "";
-            }
-            catch (Exception err)
-            {
-                FTP_Error.Text = err.Message;
-            }
-            finally
-            {
-                Properties.Settings.Default.Save();
-            }
+                try
+                {
+                    Properties.Settings.Default.FTP_CustomPort = Convert.ToUInt16(FTP_CustomPort_Box.Text);
+                    FTP_Error.Text = rs.GetString("Info_PortSaved");
+                }
+                catch (System.OverflowException)
+                {
+                    FTP_Error.Text = rs.GetString("Error_BadPort");
+                }
+                catch (System.FormatException)
+                {
+                    FTP_Error.Text = rs.GetString("Error_PortOutOfRange");
+                    FTP_CustomPort_Box.Text = "";
+                }
+                catch (Exception err)
+                {
+                    FTP_Error.Text = err.Message;
+                }
+                finally
+                {
+                    Properties.Settings.Default.Save();
+                }
             }
             else
             {
@@ -568,7 +538,7 @@ namespace _MFTP_
                             try
                             {
 #pragma warning disable CS8632
-                                FtpListItem? tmp = client.GetFilePermissions(DeleteTarget[1,i]);
+                                FtpListItem? tmp = client.GetFilePermissions(DeleteTarget[1, i]);
 #pragma warning restore CS8632
                                 if (!tmp.Type.Equals(null))
                                 {
@@ -882,7 +852,7 @@ namespace _MFTP_
             {
                 InfFile = WorkingDirectory_1;
             }
-            Form properties = new PropertiesForm(InfFile, true,FTP_FTPType);
+            Form properties = new PropertiesForm(InfFile, true, FTP_FTPType);
             properties.ShowDialog();
         }
 
@@ -964,7 +934,7 @@ namespace _MFTP_
                                 try
                                 {
 #pragma warning disable CS8632
-                                    FtpListItem? tmp = client.GetFilePermissions(CopyMoveTarget[1,i]);
+                                    FtpListItem? tmp = client.GetFilePermissions(CopyMoveTarget[1, i]);
 #pragma warning restore CS8632
                                     if (!tmp.Type.Equals(null))
                                     {
@@ -1112,7 +1082,7 @@ namespace _MFTP_
                                 ItemType = null;
                             }
                         }
-                        catch(System.NullReferenceException)
+                        catch (System.NullReferenceException)
                         {
                             ItemType = null;
                         }
@@ -1157,7 +1127,7 @@ namespace _MFTP_
 
         private void GotoRoot_1_Click(object sender, EventArgs e)
         {
-            FTP_Error.Text = ""; 
+            FTP_Error.Text = "";
             FtpClient client = new FtpClient(FTP_IP_Box.Text, FTP_Username_Box.Text, FTP_Password_Box.Text, Convert.ToUInt16(FTP_CustomPort_Box.Text));
             SetEncoding(client);
             if (FTP_FTPType == 5) // auto
@@ -1618,7 +1588,7 @@ namespace _MFTP_
             {
                 InfFile = WorkingDirectory_0;
             }
-            Form properties = new PropertiesForm(InfFile, false, FTP_FTPType) ;
+            Form properties = new PropertiesForm(InfFile, false, FTP_FTPType);
             properties.ShowDialog();
         }
 
@@ -1827,7 +1797,7 @@ namespace _MFTP_
                 try
                 {
                     FTP_CustomPort_Box.Text = result[2];
-                    if(FTP_CustomPort_Box.Text == "")
+                    if (FTP_CustomPort_Box.Text == "")
                     {
                         portLost = true;
                         FTP_CustomPort_Box.Text = "21";
