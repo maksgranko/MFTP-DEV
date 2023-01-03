@@ -1499,7 +1499,7 @@ namespace _MFTP_
                 client.Connect();
             }
 
-            Uploadcount = 0;
+        Uploadcount = 0;
             foreach (int index in Server_0_listBox.SelectedIndices)
             {
                 UploadItemName[Uploadcount] = Server_0_listBox.Items[index].ToString();
