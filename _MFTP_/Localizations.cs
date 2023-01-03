@@ -22,14 +22,8 @@ namespace _MFTP_
         public ResourceSet Setlocale()
         {
             Autolocale = Properties.Settings.Default.Autolocale;
-            if (Autolocale == true)
-            {
-                Defaultlocale = CultureInfo.CurrentUICulture.ToString().Replace("-", "_");
-            }
-            else
-            {
-                Defaultlocale = Properties.Settings.Default.SelectedLocale;
-            }
+            if (Autolocale == true) Defaultlocale = CultureInfo.CurrentUICulture.ToString().Replace("-", "_");
+            else Defaultlocale = Properties.Settings.Default.SelectedLocale;
             if (File.Exists("Resources\\Localizations\\" + Defaultlocale + ".resx"))
             {
                 if (Defaultlocale == "ru_RU")
@@ -39,9 +33,7 @@ namespace _MFTP_
                     rs = rm.GetResourceSet(cult, true, true);
                 }
             }
-            else {
-                safeMode = true;
-            }
+            else safeMode = true;
             return rs;
         }
     }
