@@ -61,7 +61,7 @@ namespace _MFTP_
                 Filename.Text = File;
                 long tmp = client.GetFileSize(File);
                 FtpListItem tmp1 = client.GetFilePermissions(File);
-                if(tmp1 == null)
+                if (tmp1 == null)
                 {
                     Filename.Text = rs.GetString("Text_Properties_FilenameInvalid");
                     goto end;
@@ -92,7 +92,8 @@ namespace _MFTP_
             {
                 FileInfo Inf = new FileInfo(File);
                 Filename.Text = Inf.Name;
-                if(Inf.Name == "..") { 
+                if (Inf.Name == "..")
+                {
                     Filename.Text = rs.GetString("Text_Properties_FilenameInvalid"); ;
                     goto end;
                 }
