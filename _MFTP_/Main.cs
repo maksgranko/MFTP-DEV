@@ -1806,7 +1806,7 @@ namespace _MFTP_
                 catch (System.FormatException)
                 {
                     portLost = true;
-                    FTP_CustomPort_Box.Text = "22";
+                    FTP_CustomPort_Box.Text = "21";
                 }
                 FTP_FTPType = 4;
                 FTP_CustomPortIsNeedUpdate = true;
