@@ -1760,8 +1760,14 @@ namespace _MFTP_
             string[] result = RecentClass.GetAll();
             foreach (string str in result)
             {
-                if (str != "empty") FTP_Recent.DropDownItems.Add(str);
-                else FTP_Recent.DropDownItems.Add(rs.GetString("null"));
+                if (str != "empty")
+                {
+                    FTP_Recent.DropDownItems.Add(result);
+                }
+                else
+                {
+                    FTP_Recent.DropDownItems.Add(rs.GetString("null"));
+                }
             }
             FTP_Recent.DropDownItems.Add(RecentSeparator);
             FTP_Recent.DropDownItems.Add(rs.GetString("Text_Clear"));
