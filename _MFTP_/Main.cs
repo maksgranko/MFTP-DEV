@@ -295,7 +295,7 @@ namespace _MFTP_
 
         private void Connect()
         {
-            if (FTP_IP_Box.Text.Length < 7 || FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1")
+            if (FTP_IP_Box.Text == "" || FTP_IP_Box.Text == "127.0.0.1")
             {
                 FTP_Error.Text = rs.GetString("Error_Incorrect_IP");
                 FTP_ConnectedState = 4;
